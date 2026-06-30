@@ -41,3 +41,6 @@ Examples and quiz of Statistical tests
 
 ## Project-11
 R project template
+
+## Project-12 
+Key statistical concepts
