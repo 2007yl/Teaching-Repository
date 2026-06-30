@@ -1,0 +1,1162 @@
+---
+title: "R Codebook"
+author: "Yang Liu"
+date: 06-01-2023
+format:
+  revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    css: ["theme/theme.css"]
+    theme: simple
+    echo: true   #include codes and results
+    incremental: true
+    scrollable: true
+editor_options: 
+  chunk_output_type: console
+---
+## identify multiple entries
+```{r}
+#identify duplicate entries
+data |>
+  get_dupes(mrn)
+#subset data
+dupdata <- data |>
+  get_dupes(mrn) |>
+  select(mrn, dupe_count, record_id, etdate, started_ocps, ohs_date, rpoc)  # Select only the columns you are interested in
+#keep single entry per mrn
+#first arrange the data frame by MRN then by palliative care consult in descending order (1, 0). 
+#The distinct function is then used to remove duplicate rows. By specifying MRN as the variable for distinct to act upon, any further duplicates of that variable will be removed.
+#The .keep_all = TRUE statement is to keep all other variables.
+#data1 will only contain unique MRN entries where in case of duplicate MRN's, only the entry with palliative care consult is kept.
+data1 <- data |>
+  arrange(mrn, desc(`palliative_care_consult`)) |>
+  distinct(mrn, .keep_all = TRUE)
+```
+## mrn Multiple entries-group_by
+```{r}
+#new variable "death_new": will be 1 for all rows of a patient who died at some point and 0 otherwise.
+data <- data |> 
+  group_by(mrn) |>
+  mutate(death_new = as.integer(any(death_count2 == 1)))|>
+  ungroup()
+```
+
+
+## Janitor
+```{r}
+data |> 
+  janitor::clean_names() |> 
+  janitor::remove_empty(which = c("rows", "cols"))
+ janitor::convert_to_date(var)
+
+```
+
+##Replace empty cell with NA 
+
+```{r}
+# Replace empty cells with NA in dataset with base R
+data[] <- lapply(data, function(x) {
+  if (is.numeric(x) || is.integer(x)) {
+    x[x == ""] <- NA
+  } else if (is.character(x)) {
+    x[x == ""] <- NA_character_
+  } else if (is.factor(x)) {
+    levels(x)[levels(x) == ""] <- NA
+  }
+  return(x)
+})
+#replace only on selected columns
+data <- data |> mutate_at('var', ~na_if(., '')) 
+
+```
+
+##Replace NA with empty string 
+
+```{r}
+# whole dataset, all columns
+covid_total[is.na(covid_total)] <- "" 
+
+```
+
+## replace values with NA
+
+```{r}
+data|>
+  mutate(var=replace(var, var<=4, NA))
+```
+
+## recode NA
+
+```{r}
+#factor variable
+data|>
+  mutate(var=as.numeric(var))|>
+  mutate(var=case_when(is.na(var) ~ 0,
+                       TRUE ~ var))
+#or
+data |>
+  mutate(var_clean=na_if(var, -99))
+```
+## how many NA
+```{r}
+data$var |> is.na() |>sum()
+data$var |> is.na() |>which()
+data$var |> anyNA()
+data|> drop_na() |> nrow()
+```
+## visualize missing data
+```{r}
+library(visdat)
+visdat::vis_miss(data)
+#if dataset is too big
+data |>
+  select(var, .....)|>
+  visdat::vis_miss()
+```
+
+## visualize missing data
+```{r}
+library(naniar)
+gg_miss_var(data, show_pct = TRUE)
+```
+
+## add id
+```{r}
+data|>
+  mutate(id = row_number())
+```
+
+## variable names
+```{r}
+library(janitor)
+data <- data |>
+  janitor::clean_names() |> 
+  janitor::remove_empty(which = c("rows", "cols")) #remove empty excel rows and columns
+ janotor::convert_to_date(var) #convert excel dates to y-m-d
+
+```
+## data type
+```{r}
+typeof(data$var)#data type
+newvar<- as.numeric(oldvar)
+newvar<- as.character(oldvar)
+newvar<- as.integer(oldvar)
+```
+
+## parse number
+```{r}
+data <- data |>
+  mutate(var_clean=parse_number(var)) #input 20mg;output 20
+```
+
+## wide to long
+
+```{r}
+# pivot longer to gather _1, _2, _3, _4, _5 into a single column
+df_long <- 
+  data1|>
+  select(id, antibiotic_name_id_1, antibiotic_name_id_2, antibiotic_name_id_3,antibiotic_name_id_4, antibiotic_name_id_5)|>
+  pivot_longer(cols = starts_with("antibiotic_name_id_"),
+               names_to = "antibiotic_name_id_col", 
+               values_to = "antibiotic_name_id_val") 
+#select(-c_col) # drop the original column names
+
+# group by id and concatenate values into a space-separated string
+df_new <- df_long %>%
+  group_by(id) %>%
+  summarize(c = paste(antibiotic_name_id_val, collapse = " ")) %>%
+  ungroup() # remove the grouping
+#add new variable to dataset        
+data1<-
+  data1 |>
+  full_join(df_new, by=join_by(id))
+```
+
+## long to wide
+```{r}
+cmp1 <- cmp %>%
+  select(category, study_cid)|>
+  # Create a row number for each id which will serve as a suffix for category columns
+  group_by(study_cid) %>%
+  mutate(row = row_number()) %>%
+  # Spread the data to wide format
+  pivot_wider(names_from = row, values_from = category, names_prefix = "category") %>%
+  # Ungroup the data frame
+  ungroup()
+```
+
+
+
+## base R
+
+```{r}
+head(covid_total) # fist 6 rows
+dim() #number of rows and columns
+summary(covid_total) #basic descriptive
+str(covid_total) #data structure
+names(covid_total) #all variable names
+boxplot.stats(covid_total$pan_day) #find outliers
+shapiro.test(covid_total$pan_day) #Shapiro-Wilk normality test
+```
+
+## Data management {visibility="hidden"}
+
+```{r}
+#rename variables
+covid_total <-
+  covid_total |>
+  rename("clinic" = "clinic_name") |>  #"new name" = "old name"
+  print(n=10)
+```
+
+```{r}
+#reorder variables
+covid_total |>
+  select(mrn, age, gender, clinic, pan_day, result)
+```
+
+```{r}
+#sort data
+covid_total |>
+  arrange(clinic, pan_day, result) |>
+  print()
+```
+
+```{r}
+#check data: what clinics included in this dataset
+covid_total |>
+  select(clinic) |>
+  unique() |>
+  print()
+```
+
+```{r}
+#check in the first 30 days of pandemic, # of positive covid cases in each clinic
+covid_total |>
+  select(clinic, pan_day, result) |>
+  filter(result != "invalid", pan_day <= 30) |>
+  tbl_summary(
+    by = result)
+```
+
+## select columns
+starts_with(“preop”) - matches preop_bp, preop_hr, preop_psa
+
+ends_with(“pain”) - matches abd_pain, extremity_pain, wound_pain
+
+contains(“bp”) - matches bp_screening, end_bp, first_bp_am
+
+matches(“week[0-9]”) - matches week4, week8, week0
+
+everything() - all columns
+
+last_col() - the last column
+
+num_range(“wk”, 1:6) - matches wk1, wk3, wk6, but not wk7
+
+where(is.numeric) - selects variables of numeric type
+
+```{r}
+# select columns that are class Numeric
+covid_total %>% 
+  select(where(is.numeric)) %>% 
+  names()
+# select columns containing certain characters
+covid_total %>% 
+  select(contains("date")) %>% 
+  names()
+# searched for multiple character matches
+covid_total %>% 
+  select(matches("clinic|hosp|date")) %>%   # note the OR symbol "|"
+# remove columns
+covid_total %>% 
+  select(-c(var1, var4:var6)) %>% # remove var1 and all columns from var4 to var6
+  select(1:5)|> #select columns 1-5
+  
+```
+## filter
+
+```{r}
+data |>
+  filter(recurrence == 1)|>
+  filter(preop_psa > 20)|>
+  filter(near(preop_psa, 10))|>
+  filter(near(preop_psa, 17, tol = 1.5)) #near a value with a set tolerance
+  filter(between(preop_psa, 10, 13))|>
+  filter(preop_psa %in% c(10,13,17))|>
+  filter(str_detect(diagnosis, "oma"))|>#matches “oma”
+  filter(!str_detect(diagnosis, pattern =  "Hodgkin"))|>
+  filter(str_detect(diagnosis, pattern = "lympho.+ic"))|> #.+ means any character from 1 to N times
+  filter(str_detect(diagnosis, "myelo.*"))|>#.* means any character from 0 to N times
+  filter(between(fake_date, ymd(“2020-03-01”), ymd(“2020-03-31”)))|>#between 2 dates
+  filter(fake_agvhd_date > today() - months(24))|>#24 months prior to today
+  filter(wday(fake_bmt_date) %in% c(1,7))|> #filter to weekdays 1 or 7 (weekend)
+  filter(is.na(fake_date))|>#filtering for the missing data in a variable
+  filter (!is.na(fake_dx_date))|> #filter for the non-missing data in a variable
+```
+## join
+```{r}
+left_join(x=dataset1, y=dataset2, by="var")
+right_join(x=dataset1, y=dataset2, by="var")
+full_join(x=dataset1, y=dataset2, by="var")
+inner_join(x=dataset1, y=dataset2, by="var")
+test <- anti_join(x=full, y=training, by="var")
+```
+
+## slice
+```{r}
+data |>
+  slice(100:200)|>#slice by position
+  slice_max(age, n=20)|>#slice by top values in variable
+  slice_min(pan_day, prop = 0.01)|>#slice by bottom values in variable
+  slice_tail(prop = 0.01)#slice by top or bottom position
+  slice_sample(prop = 0.3)|>#randomly samples 30 % obs
+  slice_sample(n = 50)|>#randomly samples 50 obs
+```
+
+## remove duplicates
+
+```{r}
+covid_total |>
+  distinct()  #evaluate and remove duplicate rows across all columns
+```
+
+## recode values
+
+data \|\> mutate(var=recode(var, "old value"="new value")) \## logic criteria
+
+```{r}
+# Convert temperatures above 40 to NA 
+data <- data %>% 
+  mutate(temp = replace(temp, temp > 40, NA))
+```
+
+## ifelse example
+
+```{r}
+#IFELSE -convert continuous variable "age" to categorical variable "age_group"
+covid_total |>
+  select(var=-mrn, -clinic) |>
+  mutate(age_group = ifelse(age <= 18, "Youth", "Adult"),
+      age_group = factor(age_group))|>
+  tbl_summary(
+    by=age_group
+  )
+```
+##convert character to numeric
+```{r}
+
+#just showing the codes (pan_day was numeric)
+covid_total |>
+  mutate_at("pan_day", as.numeric)
+```
+
+##convert factor to binary
+```{r}
+# no missing data
+data %>%
+    mutate(new_variable = if_else(old_variable == "none", 0, 1))
+
+# missing data, keep NA
+uti<- uti |>
+  mutate(access=case_when(is.na(umich19) ~ NA_real_, 
+                          umich19=="Never" ~ 1,
+                          TRUE ~ 0))
+```
+
+
+
+
+## set specified factor level as reference in regression
+
+```{r}
+#forcats
+data1$volume <- forcats::fct_relevel(data1$volume, "low")
+
+#tidyverse
+data1<- data1|> mutate(volume=factor(volume))|> relevel(ref="low") #didn't check
+
+#base R
+data1$volume <- relevel(data1$volume, ref="low")
+
+```
+
+## set specified factor level order
+```{r}
+#forcats
+data1$volume <- forcats::fct_relevel(data1$volume, "low", "medium", "high")
+
+
+data$race <- forcats::fct_infreq(data$race)
+```
+
+## group_by examples
+
+```{r}
+covid_total |>
+  group_by(clinic)|>
+  summarise(mean = mean(pan_day),
+            sd=sd(pan_day))|>
+  print()
+```
+
+```{r}
+covid_total |>
+  group_by(clinic, result)|>
+  get_summary_stats(pan_day, type = "mean_sd")|>
+  print()
+```
+
+## case_when examples
+
+```{r}
+data |>
+  mutate(menopause1=case_when(menopause ==2 ~1,
+                              menopause == 3 ~2,
+                              TRUE ~ menopause))|> #numeric
+  mutate(numre=case_when(is.na(num_re) ~ NA_character_,
+    num_re %in% c("2", "18+","3", "5", "7")~ "2 or more", 
+    TRUE ~ as.character(num_re)))|> #character
+  mutate(cmp_pe=case_when(category_1 == 7 | category_2 == 7 |  category_3 == 7|category_4 == 7  |category_5 == 7|category_6 == 7
+|category_7 == 7~1, TRUE ~ 0))
+  
+```
+
+## label categorial variables
+
+```{r}
+data |>
+   mutate(ethnicity =
+           factor(
+             ethnicity,
+             levels = 0:1,
+             labels = c("Hispanic or Latinx", "Not Hispanic or Latinx")),
+         e_insurance_type=
+           factor(
+             e_insurance_type,
+             levels = c(1:5,998:999),
+             labels = c( "Commerical Insurance (non-HMO)", "Health Maintenance Organization","Government Insurance", "Uninsured/Self Pay without Insurance","Self Pay with Insurance", "Other", "Medicaid Patient"))) |>
+   labelled::set_variable_labels(
+    patient_id ="Patient ID number",
+    dob="Date of Birth",
+    ethnicity="Ethnicity")
+```
+
+## calculate age and duration
+
+```{r}
+data |>
+  mutate(DOB = lubridate::ymd(dob),
+       dvin_date = lubridate::ymd(dvin_dx_date),
+        age_dvin = as.duration(DOB %--% dvin_date) / dyears(1),
+        age_start = (age_presentation - yrs_dz),
+       lsdvin = (age_dvin - age_start))
+```
+
+## rowwise: calculate the number of complications per id
+
+```{r}
+test<- test |>
+  rowwise() |>
+  mutate(number_cmp=sum (c_across(c(umich4_1:umich4_7))))
+```
+## rowsum
+```{r}
+data$uterine <- rowSums(data[, c("dandc", "uterinesurg")], na.rm = TRUE) 
+```
+
+
+## proportions with confidence intervals
+
+frequency and CI, one decimal place
+
+```{r}
+# data source: IOL
+data|>
+  filter(eiol_final == 1 & nulli == 1)|>
+  select(ga_grp_2, maternal_composite_new , cd, operative, chorioamnionitis, pph_1000, laceration_3or4, dystocia, maternal_icu)|>
+  tbl_summary(
+    by=ga_grp_2,
+    missing = "no",
+    digits = list(all_categorical() ~ c(0, 1))
+  ) |>
+  add_ci(pattern = "{stat} ({ci})",
+         style_fun = everything() ~ purrr::partial(style_percent, digits = 1)) |>
+  add_p()
+```
+
+## import and export 
+```{r}
+library(rio)
+#import excel data
+data <- read_excel("file path")
+#import csv data
+data <- read_csv("file path")
+#import SPSS or SAS data
+library(haven)
+data <- read_sav("file path")
+data <- read_sas("file path")
+data <- read_dta("file path")
+### IMPORTANT
+# Convert haven_labelled columns to factors
+data_converted <- data %>%
+  mutate(
+    across(where(is.labelled), as_factor)
+  )
+#export clean subset
+export(data, "data.rds")
+export(data, "data.csv")  
+#read rds
+data <- readRDS("data.rds")
+```
+
+## Publication-ready table
+
+```{r}
+employee |>
+  select(-id)|>
+  tbl_summary(
+    label= list(jobcat ~ "Job category", 
+           salbegin ~ "Beginning Salary (dollar)", salary ~ "Current Salary (dollar)", prevexp ~ "Previous Experience (months)"),
+    by=gender,
+    missing = "no",
+    statistic = all_continuous() ~ "{mean} ({sd})",
+    digits = list(all_categorical() ~ c(0, 1)),
+    missing_text = "Missing") |># how missing values should display)
+  add_p(pvalue_fun = ~ style_pvalue(.x, digits = 2))|>
+  add_overall() |>
+  add_n() |>
+  add_ci() |> #confidence intervals
+  modify_header(label ~ "**Variable**") |>
+  modify_header(
+    stat_1 ~ "**Female n=200**",
+    stat_2 ~ "**Male n=200**"
+  ) |> 
+  modify_spanning_header(all_stat_cols() ~ "**Current Employees**") |>
+  modify_footnote(
+    all_stat_cols() ~ "Median (IQR) or Frequency (%) 95% CI"
+  ) |>
+  modify_caption("**Table 1. Employee Characteristics**") |>
+  bold_labels()
+```
+
+##calculate BMI {visibility="hidden"}
+
+``` {r}
+data |>
+  mutate(height_cm=case_when(height_unit==1 ~ height_no*2.54,
+                          height_unit==2 ~ height_no))|>
+  mutate(weight_kg=case_when(weight_unit==1 ~ weight_no/2.205,
+                          weight_unit==2 ~ weight_no))|>
+  mutate(height_m=height_cm/100)|>
+  mutate(bmi=weight_kg/height_m ^ 2)|>
+  mutate(bmigroup = case_when(bmi < 18.5 ~ "Under weight",
+                              bmi < 25 ~ "Normal weight",
+                              bmi < 30 ~ "Overweight",
+                              bmi >= 30 ~ "Obese"))|>
+  mutate(bmi2 = ifelse( bmigroup=="Obese", ">=30", "<30"))
+data$bmigroup<-  forcats::fct_relevel(data$bmigroup, "Under weight", "Normal weight", "Overweight","Obese")
+  
+```
+
+##calculate surgeon volume by total cases {visibility="hidden"}
+
+``` {{r}}
+data source: MSQC
+volume <-
+  data|>
+  select(physician_cid)|>
+  group_by(physician_cid) %>%
+  summarise(
+    frequency = n()
+  ) %>%
+  ungroup() %>%
+  summarise(
+    median = median(frequency),
+    q1 = quantile(frequency, 0.25),
+    q2 = quantile(frequency, 0.5),
+    q3 = quantile(frequency, 0.75),
+    q4 = max(frequency)
+  )
+volume
+volume |>
+  group_by(physician_cid) %>%
+  mutate(surgeon=case_when(frequency<4 ~1,
+                           frequency<=12 ~2,
+                           frequency<=33 ~3,
+                           frequency>33 ~4))
+```
+
+##calculate surgeon volume by calendar year {visibility="hidden"}
+
+``` {{r}}
+data source: MSQC
+s_all <-
+  data|>
+  select(physician_cid)|>
+  group_by(physician_cid) |>
+  summarise(
+    frequency = n()
+  )  
+s2015 <-
+  data|>
+  filter(surgery_year==2015)|>
+  select(physician_cid)|>
+  group_by(physician_cid) |>
+  summarise(
+    frequency = n()
+  ) |>
+  ungroup() |>
+  mutate(surgeon2015=case_when(frequency<6 ~"low",
+                               frequency>=6 ~"high"))  
+s2016 <-
+  data|>
+  filter(surgery_year==2016)|>
+  select(physician_cid)|>
+  group_by(physician_cid) |>
+  summarise(
+    frequency = n()
+  ) |>
+  ungroup() |>
+  mutate(surgeon2016=case_when(frequency<12 ~"low",
+                           frequency>=12 ~"high"))
+
+s2017 <-
+  data|>
+  filter(surgery_year==2017)|>
+  select(physician_cid)|>
+  group_by(physician_cid) |>
+  summarise(
+    frequency = n()
+  ) |>
+  ungroup() |>
+  mutate(surgeon2017=case_when(frequency<12 ~"low",
+                               frequency>=12 ~"high"))
+
+s2018 <-
+  data|>
+  filter(surgery_year==2018)|>
+  select(physician_cid)|>
+  group_by(physician_cid) |>
+  summarise(
+    frequency = n()
+  ) |>
+  ungroup() |>
+  mutate(surgeon2018=case_when(frequency<12 ~"low",
+                               frequency>=12 ~"high"))
+test0 <-
+  s2015 |>
+  select(physician_cid, surgeon2015)|>
+  full_join(s_all, s2015,by=join_by(physician_cid), relationship="many-to-many")
+
+test <-
+  s2016 |>
+  select(physician_cid, surgeon2016)|>
+  full_join(test0, s2016,by=join_by(physician_cid), relationship="many-to-many")
+
+test1 <-
+  s2017 |>
+  select(physician_cid, surgeon2017)|>
+  full_join(test, s2017,  by=join_by(physician_cid), relationship="many-to-many")
+
+test2 <-
+  s2018 |>
+  select(physician_cid, surgeon2018)|>
+  full_join(test1, s2018,  by=join_by(physician_cid), relationship="many-to-many")
+
+data0 <-
+  full_join(data, test2,  by=join_by(physician_cid), relationship="many-to-many")
+
+data0<-
+  data0 |>
+  mutate(volume=case_when(c(surgery_year==2015 & surgeon2015=="low")~"low",
+                          c(surgery_year==2015 & surgeon2015=="high")~"high",
+                          c(surgery_year==2016 & surgeon2016=="low")~"low",
+                          c(surgery_year==2016 & surgeon2016=="high")~"high",
+                          c(surgery_year==2017 & surgeon2017=="low")~"low",
+                          c(surgery_year==2017 & surgeon2017=="high")~"high",
+                          c(surgery_year==2018 & surgeon2018=="low")~"low",
+                          c(surgery_year==2018 & surgeon2018=="high")~"high"))
+```
+
+##convert duration datetime to time {visibility="hidden"}
+
+``` {{r}}
+#data source: MSQC, data format "1 days 03:36:00"
+#surgery_time, operation time; 
+#incision_time, time from incision to discharge
+data |>
+  select(surgery_duration, incision_to_discharge)|>
+  mutate(surgeryt=str_sub(surgery_duration,8,15))|>
+  mutate(surgery_duration1 = hms(surgeryt)) |> 
+  mutate(surgery_duration2 = surgery_duration1 + days(str_sub(surgery_duration, 1, 1))) |>
+  mutate(surgery_time = as.numeric(surgery_duration2, "hours"))|>  
+  mutate(surgery_time = case_when(surgery_time < 0.5 ~ "NA",
+                                  TRUE ~  as.character(surgery_time))) |>
+  mutate(incision_to_discharge = case_when(
+    incision_to_discharge %in% c("95 days 03:36:00", "94 days 00:48:00", "92 days 04:59:00") ~ "NA",TRUE ~ as.character(incision_to_discharge))) |>
+  mutate(inci=str_sub(incision_to_discharge,8,15))|>
+  mutate(inci1 = hms(inci)) |> 
+  mutate(inci2 = inci1 + days(str_sub(incision_to_discharge, 1, 1))) |>
+  mutate(incision_time = as.numeric(inci2, "hours")) |>
+  mutate(incision_time = case_when(incision_time < 2.0 ~ "NA",
+                                   TRUE ~  as.character(incision_time))) |>
+  mutate_at(vars("surgery_time", "incision_time"), as.numeric)|>
+  mutate(sameday=case_when(incision_time <=24 ~ 1,
+                           incision_time >24 ~0,
+                           TRUE ~ incision_time))|>
+  mutate(sameday=factor(sameday))
+```
+
+## import qualtrics data
+
+``` {{r}}
+#import qualtrics data directly
+#instructions:https://cran.r-project.org/web/packages/qualtRics/vignettes/qualtRics.html
+install.packages("qualtRics")
+library(qualtRics)
+qualtrics_api_credentials(api_key = "n6Rh6tDRAvIqxn4pYmjzMV5MabN4hNU2ShMpWfa3", 
++                         base_url = "ca1.qualtrics.com",
++                         install = TRUE)
+readRenviron("~/.Renviron")
+surveys <- all_surveys()
+mysurvey <- fetch_survey(
+                    surveyID=surveys$id[4],                     verbose = TRUE)
+view(mysurvey)
+glimpse(mysurvey)
+#never share API key
+```
+
+``` {{r}}
+#import qualtrics data (.csv) to R
+install.packages("qualtRics")
+library(qualtRics)
+mysurvey1<- read_survey("Q.csv")
+view(mysurvey1)
+```
+
+```{r}
+#import redcap (.csv) to R
+```
+
+##data visualization {visibility="hidden"}
+
+```{r}
+#plot the difference between two ggplot density distributions
+library(ggplot2)
+n_sp  <- 100000
+n_dup <- 50000
+D <- data.frame( 
+     event=c(rep("sp", n_sp), rep("dup", n_dup) ), 
+     q=c(rnorm(n_sp, mean=2.0), rnorm(n_dup, mean=2.1)) 
+ )
+ggplot( D, aes( x=q, y=..density.., col=event ) ) + geom_freqpoly()
+D %>% group_by(event) %>% 
+    # calculate densities for each group over same range; store in list column
+    summarise(d = list(density(q, from = min(.$q), to = max(.$q)))) %>% 
+    # make a new data.frame from two density objects
+    do(data.frame(x = .$d[[1]]$x,    # grab one set of x values (which are the same)
+                  y = .$d[[1]]$y - .$d[[2]]$y)) %>%    # and subtract the y values
+    ggplot(aes(x, y)) +    # now plot
+    geom_line()
+#ref: https://stackoverflow.com/questions/42564106/how-to-plot-the-difference-between-two-ggplot-density-distributions?rq=1
+```
+
+## Homogeneity of Variance: F test
+```{r}
+f_test <- var.test(salary ~ male, data = data)
+f_test
+#interpretation: if p-value is less than 0.05, therefore we reject the null hypothesis and we give evidence our variance are heterogenous.
+```
+
+## Normality test
+```{r}
+shapiro.test(data$age) 
+```
+
+## Independent two samples t-test
+```{r}
+#Assumptions:
+#The dependent variable is continuous  
+#The observations are independent  
+#The dependent variable is approximately normally distributed within each group  
+#Homogeneity of variance  
+
+# Normality by group
+by(data$salary, data$gender, shapiro.test)
+
+# Homogeneity of variance
+#var.test() is the traditional F-test for comparing two variances, but it assumes the data are normally distributed. fligner.test() also tests whether variances are equal, but it is more robust when the data are skewed or contain outliers.
+var.test(salary ~ gender, data = data)
+fligner.test(salary ~ male, data = data)
+
+# Independent two-samples t-test assuming equal variances
+t.test(salary ~ gender, data = data, var.equal = TRUE)
+
+# Welch's independent samples t-test (handle unequal variances)
+t.test(salary_normal ~ male, data = data)
+```
+
+## Chi-squared test
+```{r}
+# Convert the two variables to factors if they are not already
+data$var1 <- as.factor(data$var1)
+data$var2 <- as.factor(data$var2)
+
+# Run the chi-square test
+chi_square_result <- chisq.test(data$var1, data$var2)
+
+# View the result of the chi-square test
+chi_square_result
+
+```
+
+## Fisher's Exact test
+```{r}
+# Create a contingency table
+contingency_table <- table(data$var1, data$var2)
+# Run Fisher's Exact Test
+fisher_test_result <- fisher.test(contingency_table)
+# if not enough work space: Fisher's Exact Test can be computationally intensive for large tables, and it requires a sufficiently large workspace to handle the calculation.
+fisher_test_result <- fisher.test(contingency_table, workspace = 2e7, hybrid = TRUE)
+# Print the results
+print(fisher_test_result)
+```
+## Correlation
+```{r}
+library(corrr)
+#--- Normality tests ---
+shapiro.test(chyst$var_x)     
+shapiro.test(chyst$var_y)  
+
+#normal distribution
+#Pearson's correlation (Pearson correlation (r), which measures a linear dependence between two variables (x and y). It’s also known as a parametric correlation test because it depends to the distribution of the data. It can be used only when x and y are from normal distribution. The plot of y = f(x) is named the linear regression curve.)
+correlation_tab <- data %>% 
+  select(var_x, var_y) %>%   # keep numeric variables of interest
+  correlate()      # create correlation table (using default pearson)
+
+correlation_tab    # print
+
+#not normal distribution
+#Spearman's rho (rank-based correlation coefficients,non-parametric)
+correlation_tab <- data %>% 
+  select(var_x, var_y) %>%   # keep numeric variables of interest
+  correlate(method = "spearman")      # create correlation table (using spearman)
+
+correlation_tab    # example: rho=0.535  moderately positive correlation
+
+## remove duplicate entries (the table above is mirrored) 
+correlation_tab <- correlation_tab %>% 
+  shave()
+
+## view correlation table 
+correlation_tab
+
+## plot correlations 
+rplot(correlation_tab)
+## base R
+result <-cor.test(data$var_x, data$var_y,  method = "spearman")
+result  #example: p <0.001 rho=0.535
+
+#interpretation
+#rho or r: Correlation coefficient is comprised between -1 and 1:
+#-1 indicates a strong negative correlation : this means that every time x increases, y decreases 
+#0 means that there is no association between the two variables (x and y) 
+#1 indicates a strong positive correlation : this means that y increases with x 
+#conclusion:
+#We can conclude that var_x and var_y are significantly correlated with a correlation coefficient of 0.535 and p-value of less than 0.001.
+```
+
+## Calculate median, Q1 and Q3 
+```{r}
+median(subset$score_sc, na.rm = TRUE)
+quantile(subset$score_sc, probs = c(0.25, 0.75), na.rm = TRUE)
+```
+
+## Wilcoxon Rank sum test
+```{r}
+# Calculate median, Q1, and Q3 by group
+summary_stats <- subset %>%
+  group_by(ace_new) %>%
+  summarise(
+    median_score = median(score_sc, na.rm = TRUE),
+    Q1 = quantile(score_sc, 0.25, na.rm = TRUE),
+    Q3 = quantile(score_sc, 0.75, na.rm = TRUE)
+  )
+
+print(summary_stats)
+# Run the Wilcoxon rank sum test
+wilcox_test <- wilcox.test(score_sc ~ ace_new, data = data)
+print(wilcox_test)
+```
+
+## univariable logistic regression, unadjusted odds ratio
+
+``` {{r}}
+data1 |>
+  select(var1, var2, var3, var4, var5) |>
+  tbl_uvregression(method = glm, y=var5, exponentiate = TRUE)|>
+  modify_caption("**Table. Univariable logistic regression**")
+```
+
+## Relative Risk (Incidence Rate Ratio)
+```{r}
+data1 |>
+  select(var1, var2, var3, var4, var5) |>
+  tbl_uvregression(method = glm, method.args = list(family = poisson),y=var5, exponentiate = TRUE, hide_n = TRUE)|>
+  modify_caption("**Table. Poisson regression analysis of risk factors in relation to var5**")
+```
+
+
+## multivariable logistic regression
+
+``` {{r}}
+glm(var5 ~ var1 + var2 + var3 + var4, data=data1, family = binomial) |>
+tbl_regression(exponentiate = TRUE) |>
+modify_caption("**Multivariable logistic regression**")
+```
+
+## Multivariable linear regression
+```{r}
+#example:ResidentsResearch/Residents/2027/Gabrielle Schweitzen/msqc
+m1 <- lm(log(val_surgtime) ~ uterine + val_age + race3 + ethnicity + insurance + bmi + sleep_apnea + hypertension + smoker +  copd + volume_new +  procedure + indication +priorpelvic_csection + priorpelvic_robotic +priorpelvic_open, data=data)
+```
+
+
+## mixed model
+```{{r}}
+glm(var5 ~ var1 + var2 + var3 +  (1 | var4), data=data1, 
+    family=binomial, control = glmerControl(optimizer = "bobyqa"), nAGQ = 10)|> 
+tbl_regression(exponentiate = TRUE) |>
+modify_caption("**Multivariable logistic regression**")
+#var4: random effect variable, i.e. site, surgeon, hospital
+```
+## forest plot
+```{r}
+library(tidyverse)
+library(forestplot)
+#load data
+nvss <- read_excel("C:/Users/ylyl/OneDrive - Michigan Medicine/ResidentsResearch/Fellows/Chris Hong/NVSS OASIS Tables 2023.06.13.xls", 
+                   sheet = "aor")
+#plot
+nvss |>
+  forestplot(labeltext = c(var, aor),
+             clip = c(0.1, 15.2),
+             boxsize = 0.2,
+             xlog = TRUE) |>
+  fp_set_style(box = "royalblue",
+               line = "darkblue"
+               ) |> 
+  fp_add_header(var = c("", "Characteristics"),
+                aor = c("", "aOR(95% CI)"))
+  fp_set_zebra_style("#EFEFEF")
+#ref: https://cran.r-project.org/web/packages/forestplot/vignettes/forestplot.html
+```
+## power/sample size-mean
+```{r}
+library(pwr)
+results <- pwr::pwr.t.test(n = NULL, # note that n is per arm
+                sig.level = 0.05, 
+                type = "two.sample", 
+                alternative = "two.sided", 
+                power = 0.8, 
+                d = 0.5 )
+plot(results)
+```
+## power/sample size-two proportions
+```{r}
+library(pwr)
+pwr.p.test(h = ES.h(p1 = 0.6, p2 = 0.66),
+           n = NULL, # note that n is per arm
+           sig.level = .05,
+           power = 0.8,
+           alternative = "two.sided")
+```
+## non-inferiority analysis-sample size
+```{r}
+# Parameters for sample size calculation
+reference_treatment_efficacy <- 0.90
+new_treatment_efficacy_min <- 0.75
+non_inferiority_margin <- 0.15
+alpha <- 0.05
+power <- 0.80
+delta <- reference_treatment_efficacy - new_treatment_efficacy_min - non_inferiority_margin
+
+# Calculate the sample size
+sample_size <- power.prop.test(p1 = reference_treatment_efficacy, 
+                               p2 = reference_treatment_efficacy - non_inferiority_margin + delta, 
+                               sig.level = alpha, 
+                               power = power, 
+                               alternative = "one.sided")
+
+print(sample_size)
+```
+## non-inferiority test
+```{r}
+# Simulated data example based on calculated sample size
+reference_n <- ceiling(sample_size$n)
+new_n <- ceiling(sample_size$n)
+reference_successes <- round(reference_n * reference_treatment_efficacy)
+new_successes <- round(new_n * new_treatment_efficacy_min)
+
+# Run non-inferiority test using prop.test (for comparing two proportions)
+result <- prop.test(x = c(reference_successes, new_successes),
+                    n = c(reference_n, new_n),
+                    alternative = "greater",
+                    correct = FALSE,
+                    conf.level = 1-alpha)
+
+print(result)
+```
+
+
+
+## model performance
+```{r}
+#linear regression model
+library(flexplot)
+model.comparison(model1, model2)
+#logistic regression
+library(easystats)
+performance::check_model(model1)
+performance::model_performance(model1)
+```
+
+## survey-weighted data
+```{r}
+library(haven)
+library(tidyverse)
+library(janitor)
+library(gtsummary)
+library(survey)
+ir <- read_sav("C:/Users/ylyl/OneDrive - Michigan Medicine/ResidentsResearch/Fellows/Marie Bangura/FGC/SL_2019_DHS/SLIR7ASV/SLIR7AFL.SAV")
+ir<- ir |>
+  clean_names()
+ir<-ir|>
+  mutate(wt=v005/1000000,
+# Complete case         
+# NOTE: This creates a logical vector, taking on values TRUE and FALSE        
+  nomiss = !is.na(v012) & !is.na(v101) & !is.na(v106) & !is.na(v130) & !is.na(v131) & !is.na(v025) & !is.na(v119) & !is.na(v121) & !is.na(v125) & !is.na(v136) & !is.na(v151) & !is.na(v171a) & !is.na(v190) & !is.na(v190a) & !is.na(g102))
+# Complex sample design parameters
+DHSdesign<-svydesign(id=~v021, strata=~v023, weights=~wt, data=ir)
+#use the subset() function to create design objects that will produce analyses just for the cases with complete data. These design objects are not actually necessary for regression analyses, but will ensure that descriptive statistics are based on the same cases as regression analyses. 
+DHSdesign.nomiss <- subset(DHSdesign, nomiss)
+#demographic summary table
+DHSdesign.nomiss |>
+  tbl_svysummary(
+    # stratify summary statistics by the "fgc" column
+    by = g102,
+    # summarize a subset of the columns
+    include = c(v012, v101, v106,v130, v131,v025, v119, v121, v125, v136, v151, 
+                v171a, v190, v190a, g102),
+    # adding labels to table
+    label = list(
+      v012 ~ "Age",
+      v106 ~ "Highest education level",
+      v101 ~ "Region",
+      v130 ~ "Religion",
+      v131 ~ "Ethnicity",
+      v025  ~   "Type of place of residence",
+      v119  ~   "Household has: electricity",
+      v121  ~   "Household has: television",
+      v125  ~   "Household has: car/truck",
+      v136  ~   "Number of household members (listed)",
+      v151 ~    "Sex of household head",
+      v171a ~   "Use of internet",
+      v190  ~   "Wealth index combined",
+      v190a  ~  "Wealth index for urban/rural"
+    )
+  ) |>
+  add_p() |> # comparing values by "g102" column
+  add_overall() |>
+  # adding spanning header
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**FGC**")
+#notes: Unweighted proportions reflect the composition of the sample, whereas weighted proportions estimate the population distribution.For categorical variables,  N and  n values in the table are estimated population totals – when we did unweighted analyses, these were sample sizes. ref: https://www.bookdown.org/rwnahhas/RMPH/survey-desc.html
+```
+## flow chart
+
+
+## String detection-package "stringr"-- ifelse and case_when
+```{r}
+#code using package "stringr"
+data <- data |>
+  mutate(
+    procedure = if_else(other_procedure_e == "{0}", 0, 1),
+    indication = case_when(
+      indication_for_procedure_e == "{6}" ~ "Only adeno",
+      str_detect(indication_for_procedure_e, "\\b6\\b") & !str_detect(indication_for_procedure_e, "\\b7\\b") ~ "Adeno and other",
+      indication_for_procedure_e == "{7}" ~ "Only aub/ fibroids",
+      str_detect(indication_for_procedure_e, "\\b7\\b") & !str_detect(indication_for_procedure_e, "\\b6\\b") ~ "Aub/fibroids and other",
+      str_detect(indication_for_procedure_e, "\\b6\\b") & str_detect(indication_for_procedure_e, "\\b7\\b") ~ "Adeno, aub, fibroid and other",
+      TRUE ~ "Other"
+    ),
+    priorpelvicsurgery = if_else(prior_abdominopelvic_surgery_e == "{1}", 0, 1),
+    priorpelvic_csection = if_else(str_detect(prior_abdominopelvic_surgery_e, "\\b2\\b"), "Yes", "No"),
+    priorpelvic_robotic = if_else(str_detect(prior_abdominopelvic_surgery_e, "\\b3\\b"), "Yes", "No"),
+    priorpelvic_open = if_else(str_detect(prior_abdominopelvic_surgery_e, "\\b4\\b|\\b5\\b"), "Yes", "No")
+```
+
+## missing data
+```{r}
+data<-data|>
+  # Complete case         
+# NOTE: This creates a logical vector, taking on values TRUE and FALSE        
+  mutate(nomiss = !is.na(bmi) & !is.na(bmigroup))
+```
+
+## Functions
+### check NA
+```{r}
+check_na <- function(df) {
+  # Calculate total number of NA values in the data frame
+  total_na <- sum(is.na(df))
+  
+  # Calculate the number of NA values for each column
+  na_per_column <- colSums(is.na(df))
+  
+  # Create a summary list
+  na_summary <- list(
+    total_na = total_na,
+    na_per_column = na_per_column
+  )
+  
+  return(na_summary)
+}
+#example
+check_na(mydata)
+```
+
+###remove categories that has 0% frequency
+```{r}
+# A function to drop levels with zero count in a factor variable
+drop_zero_categories <- function(x) {
+  # Convert to factor if not already
+  x <- as.factor(x)
+  # Keep only levels with non-zero count
+  factor(x, levels = levels(x)[tabulate(x) > 0])
+}
+
+# Apply this function to specified columns
+data <- data %>%
+  mutate(
+    race = drop_zero_categories(race),
+    income = drop_zero_categories(income),
+    education = drop_zero_categories(education),
+    ethnicity = drop_zero_categories(ethnicity)
+  )
+```
+## "any comorbidities"
+```{r}
+#create new variable "any_comorbidities"
+data <- data %>%
+  mutate(any_comorbidities = if_any(starts_with("comorbidities_category___"), ~ . == 1))   
+```
+## Table-remove all zero columns
+```{r}
+data |>
+  select(where(~ any(. != 0))) |> # Exclude all-zero columns
+   tbl_summary(
+    digits = list(all_categorical() ~ c(0, 1)))
+```
+
