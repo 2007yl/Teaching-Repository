@@ -22,13 +22,13 @@ R codebook
 Stata codebook
 
 ## Project-5
-Introduction to R 
+Introduction to R Workshop
 
 ## Project-6
-Introduction to Stata 
+Introduction to Stata Workshop
 
 ## Project-7
-Introduction to Qualtrics 
+Introduction to Qualtrics Workshop
 
 ## Project-8
 Introduction to Study Design
