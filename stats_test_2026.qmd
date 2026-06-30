@@ -1,3 +1,20 @@
+---
+title: "Statistical Tests"
+author: "Yang Liu"
+date: 02-16-2026
+format: 
+   revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    theme: simple
+    incremental: true
+    scrollable: true
+execute:
+  echo: false
+  warning: false
+editor: visual
+---
 ## Core Curriculum  {#slide-1}
 
 2-16-2026
