@@ -1,0 +1,48 @@
+---
+title: ""
+author: ""
+date: 
+format: html
+execute:
+  echo: false
+  warning: false
+editor: visual
+---
+
+## Title:
+
+## Team
+
+## Background
+
+-   
+
+## Study population
+
+## Hypothesis
+
+## Objective
+
+1.  Characterize
+
+2.  Identify factors associated with
+
+3.  
+
+## Primary outcome
+
+## Secondary outcome
+
+## Variables of interest
+
+-Demographic and clinical characteristics: race, ethnicity, bmi, gravida, para, insurance, primary language, social driver for health, comorbidities
+
+-characteristics:
+
+-characteristics:
+
+## References
+
+## 
+
+## Discussions

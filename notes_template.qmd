@@ -1,0 +1,412 @@
+---
+title: ""
+author: ""
+date: 
+format: html
+execute:
+  echo: false
+  warning: false
+editor: visual
+---
+
+## Title:
+
+## Team
+
+## Background
+
+-   
+
+## Study population
+
+age
+
+```{r}
+#| echo: false
+library(DiagrammeR)
+grViz("digraph flowchart {
+      # node definitions with substituted label text
+      node [fontname = Helvetica, shape = rectangle]        
+      tab1 [label = '@@1']
+      tab2 [label = '@@2']
+      tab3 [label = '@@3']
+      tab4 [label = '@@4']
+      tab5 [label = '@@5']
+
+      # edge definitions with the node IDs
+      tab1 -> tab2 -> tab3 -> tab4 -> tab5;
+      }
+
+      [1]: 'N='
+      [2]: 'N='
+      [3]: 'Exclude N='
+      [4]: 'Participants had complete data  N='
+      [5]: 'Study population N='
+      ")
+```
+
+## Objective
+
+1.  Characterize
+
+2.  Identify factors associated with
+
+3.  
+
+## Primary outcome
+
+## Secondary outcome
+
+## Variables of interest
+
+-Demographic and clinical characteristics: race, ethnicity, bmi, gravida, para, insurance, primary language, social driver for health, comorbidities
+
+-characteristics:
+
+-characteristics:
+
+## Data management (Import, Cleaning, Variable Creation)
+
+### Load Packages
+
+```{r}
+library(tidyverse) #for import, cleaning, wrangling
+library(gtsummary) #for summarizing
+library(labelled) #for variable labelling
+library(rio) #import/export 
+library(janitor) #for cleaning and tabulation helpers
+library(visdat) #data visualization for missingness
+```
+
+### Import and Merge data
+
+```{r}
+#--- Import raw datasets from REDCap ---
+data <- read_csv("rawdata/EndometrialCancerGen_DATA_2025-09-15_0729.csv")
+ruca <- read_csv("rawdata/Endometrial Cancer Genetic Counseling_FULL DATA_2025-09-03.csv")
+
+#--- Select and format MRN and RUCA data ---
+ruca <- ruca |>
+  select(mrn, `Primary RUCA`) |>
+  mutate(mrn = as.character(mrn))
+
+#--- Merge RUCA to main data on MRN ---
+data <- left_join(data, ruca, by = "mrn")
+```
+
+### Initial Data Check and Cleaning
+
+```{r}
+#--- Basic structure and missingness checks ---
+str(data)          # Data structure
+head(data)         # First 6 rows
+dim(data)          # Number of rows & columns
+names(data)        # Variable names
+visdat::vis_miss(data) # Visualize missing data
+
+#replace empty string with NA, whole dataset, all columns
+data[data == ''] <- NA 
+#replace only on selected columns
+data <- data |> mutate_at('selected var', ~na_if(., '')) 
+
+#--- Custom NA summary function ---
+check_na <- function(df) {
+  total_na <- sum(is.na(df))
+  na_per_column <- colSums(is.na(df))
+  list(total_na = total_na, na_per_column = na_per_column)
+}
+check_na(data)
+
+#--- Duplicates ---
+data |> get_dupes()
+data |> get_dupes(mrn)
+```
+
+### **Variable Transformation and Labeling**
+
+```{r}
+#--- Recode variables for analysis ---
+data <- data |>
+  mutate(
+    ethnic = factor(
+      ethnic,
+      levels = c(1:2, 990, 998),
+      labels = c(
+        "Hispanic or Latino",
+        "Not Hispanic or Latino",
+        "Prefer Not to Answer",
+        "Unknown/Not Reported"
+      )
+    ),
+    race = case_when(
+      race___white == 1 ~ "White",
+      race___black == 1 ~ "Black or African American",
+      race___asian == 1 ~ "Asian",
+      race___amind == 1 ~ "American Indian or Alaska Native",
+      race___nahaw == 1 ~ "Native Hawaiian or Other Pacific Islander",
+      race___other == 1 ~ "Other",
+      race___unk == 1 ~ "Unknown/Not Reported",
+      race___pnta == 1 ~ "Prefer Not to Answer"
+    ),
+    insurance_type = factor(
+      insurance_type,
+      levels = c(1:3, 5),
+      labels = c(
+        "Government", "Private/Commercial", "Uninsured/Self-Pay", "Unknown/Not Reported"
+      )
+    ),
+    primary = case_when(
+      primary_language == 1 ~ "English",
+      primary_language %in% 2:10 ~ "Other",
+      primary_language == 11 ~ "Unknown/Not Reported"
+    ),
+    tumor_histology = factor(
+      tumor_histology,
+      levels = c(1,3,4,5),
+      labels = c("Endometrioid", "Clear Cell", "Carcinosarcoma", "Other")
+    ),
+    grade = factor(
+      grade,
+      levels = 1:4,
+      labels = c("1", "2", "3", "Other/Not Reported")
+    ),
+    stage = case_when(
+      stage___1 == 1  ~ "IA",
+      stage___2 == 1  ~ "IB",
+      stage___3 == 1  ~ "II",
+      stage___4 == 1 | stage___5 == 1 | stage___6 == 1 | stage___7 == 1 ~ "IIIA-C2",
+      stage___8 == 1 | stage___9 == 1 ~ "IVA-IVB",
+      stage___999 == 1 ~ "Other/Not Reported"
+    )
+  )
+```
+
+### **Derived Variables for Timeline and Demographics**
+
+```{r}
+#--- Calculate time from diagnosis to genetic referral ---
+data <- data |>
+  mutate(
+    date_of_diagnosis1 = ymd(date_of_diagnosis),
+    date_of_referral_to_gc1 = ymd(date_of_referral_to_gc),
+    time = as.numeric(date_of_referral_to_gc1 - date_of_diagnosis1, units = "days"),
+
+    # Age at diagnosis in years
+    date_of_birth1 = ymd(date_of_birth),
+    age = as.duration(date_of_birth1 %--% date_of_diagnosis1) / dyears(1)
+  )
+```
+
+### **Generate Cumulative Sums**
+
+```{r}
+#--- Summing social drivers and comorbidities for each row ---
+data <- data |>
+  rowwise() |>
+  mutate(
+    number_drive = sum(c_across(social_drivers_of_health___1:social_drivers_of_health___17), na.rm = TRUE),
+    number_comor = sum(c_across(comorbidities___1:comorbidities___16), na.rm = TRUE)
+  ) |>
+  ungroup()
+```
+
+### **Numeric Conversion for Summaries**
+
+```{r}
+#--- Convert cumulative indexes to numeric ---
+data <- data |>
+  mutate(
+    drive = as.integer(number_drive),
+    comor = as.integer(number_comor),
+    ruca = as.integer(`Primary RUCA`)
+  )
+```
+
+### **Variable Grouping for Statistical Analysis**
+
+```{r}
+#--- Re-level and create grouped categorical/factor variables for analysis ---
+data <- data |>
+  mutate(
+    race = as.character(race),
+    ethnic = as.character(ethnic),
+    race1 = if_else(race %in% c("Prefer Not to Answer", "Unknown/Not Reported"), "Not reported", race),
+    ethnic1 = if_else(ethnic %in% c("Prefer Not to Answer", "Unknown/Not Reported"), "Not reported", ethnic),
+    ruca1 = if_else(ruca %in% 1:3, "Metropolitan area", "Non-Metropolitan area"),
+    drive1 = case_when(
+      drive == 0 ~ "None",
+      drive == 1 ~ "One",
+      drive == 2 ~ "Two",
+      drive >= 3 ~ ">=Three"
+    ),
+    comor1 = case_when(
+      comor == 0 ~ "None",
+      comor == 1 ~ "One",
+      comor == 2 ~ "Two",
+      comor >= 3 ~ ">=Three"
+    ),
+    histo = if_else(
+      tumor_histology %in% c("Clear Cell", "Carcinosarcoma", "Other"), "Other", as.character(tumor_histology)
+    ),
+    stage1 = case_when(
+      is.na(stage) | stage == "Other/Not Reported" ~ "Unstaged",
+      TRUE ~ stage
+    )
+  )
+```
+
+### **Factor Level Orders & Additional Recoding**
+
+```{r}
+#--- Set factor reference/level orders for plotting/stats ---
+data <- data |>
+  mutate(
+    race = forcats::fct_relevel(as.factor(race), "White", "Black or African American", "Asian", "Other", "Prefer Not to Answer", "Unknown/Not Reported"),
+    ethnic = forcats::fct_relevel(as.factor(ethnic), "Not Hispanic or Latino", "Hispanic or Latino", "Prefer Not to Answer", "Unknown/Not Reported"),
+    race1 = forcats::fct_relevel(race1, "White", "Black or African American", "Asian", "Other", "Not reported"),
+    ethnic1 = forcats::fct_relevel(ethnic1, "Not Hispanic or Latino", "Hispanic or Latino", "Not reported"),
+    drive1 = forcats::fct_relevel(drive1, "None", "One", "Two", ">=Three"),
+    comor1 = forcats::fct_relevel(comor1, "None", "One", "Two", ">=Three")
+  )
+
+#--- Convert refer variable and set preferred level order ---
+data <- data |>
+  mutate(
+    refer = factor(referral_to_gc, levels = 0:1, labels = c("No", "Yes")),
+    refer = forcats::fct_relevel(refer, "Yes", "No"),
+    result = forcats::fct_relevel(result, "Positive for mutation", "Negative for mutation", "Missing")
+  )
+```
+
+### Additional Grouping
+
+### **Variable Labelling**
+
+```{r}
+#--- Label variables for reporting/plotting ---
+label(data$age)    <- "Age at diagnosis (yr)"
+label(data$ethnic) <- "Ethnicity"
+label(data$race)   <- "Race"
+label(data$ethnic1)<- "Ethnicity"
+label(data$race1)  <- "Race"
+label(data$bmi)    <- "BMI"
+label(data$primary)<- "Primary Language"
+label(data$insurance_type) <- "Primary Insurance"
+label(data$grade)  <- "Grade"
+label(data$stage)  <- "Stage"
+label(data$stage1) <- "Stage"
+label(data$time)   <- "Time to Genetic Counseling Appointment (d)"
+label(data$gravida) <- "Gravida"        
+label(data$number_drive) <- "Social Drivers of Health" 
+label(data$number_comor) <- "Comorbidities"
+label(data$drive)  <- "Social Drivers of Health" 
+label(data$comor)  <- "Comorbidities"
+label(data$ruca)   <- "Primary RUCA"
+label(data$drive1) <- "Social Drivers of Health" 
+label(data$comor1) <- "Comorbidities"
+label(data$ruca1)  <- "Primary RUCA"
+label(data$tumor_histology) <- "Histology"
+label(data$histo)   <- "Histology"
+label(data$germline_testing_performed) <- "Prior Germline Testing"
+label(data$completion_of_genetic_test) <- "Completion of genetic testing"
+label(data$genetic_testing_result) <- "Genetic testing result" 
+label(data$result) <- "Genetic testing result" 
+label(data$refer)  <- "Referred to genetic counseling"
+label(data$attended_gc_appt) <- "Attended Genetic Counseling Appointment"
+label(data$location_of_gc_appt) <- "Location of Genetic Counseling Appointment"
+label(data$recommended_cascade_test) <- "Recommendation for Cascade Testing"
+label(data$concurrent_cancer) <- "Concurrent Cancer"
+label(data$first_deg_relative_cancer) <- "First-Degree Relative with Cancer"
+label(data$sec_deg_relative_cancer) <- "Second-Degree Relative with Cancer"
+label(data$third_deg_relative_cancer) <- "Third-Degree Relative with Cancer"
+label(data$gravida) <- "Gravida"
+label(data$para) <- "Para"
+label(data$para1) <- "Para"
+```
+
+### **Distribution & Missing Data Checks**
+
+```{r}
+#--- Normality tests ---
+shapiro.test(data$age)     
+shapiro.test(data$bmi)     
+shapiro.test(data$comor)   
+shapiro.test(data$drive)   
+shapiro.test(data$para)    
+shapiro.test(data$gravida) 
+
+#--- List MRNs with missing info ---
+data |>
+  filter(is.na(third_deg_relative_cancer)) |>
+  select(mrn) |>
+  print(n = 100)
+```
+
+### **Save Final Data**
+
+```{r}
+#--- Save cleaned/curated dataframe ---
+export(data, "data.rds")
+```
+
+## Descriptive summary
+
+### Table 1 overview and by
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(gtsummary)
+
+# read rds
+data <- readRDS("data.rds")
+# descriptive summary; Wilcoxon rank-sum test, Chi-square test, Fisher's Exact test
+data |>  
+  select(age, bmi, race1, ethnic1, primary, ruca1,insurance_type, gravida, para1,drive1, comor1, histo, grade, stage1, refer, concurrent_cancer, germline_testing_performed) |>
+  tbl_summary(
+    by=refer,
+    digits = list(all_categorical() ~ c(0, 1)))|>
+  add_overall()|>
+  add_p() |>
+  modify_spanning_header(all_stat_cols() ~ "**Referred to Genetic Counseling**")|>
+  modify_caption("**Data summary**")
+
+#Manually calculate median, Q1, Q3
+median(data$para, na.rm = TRUE)
+quantile(data$para, probs = c(0.25, 0.75), na.rm = TRUE)
+# Calculate median, Q1, and Q3 by group
+summary_stats <- data %>%
+  group_by(refer) %>%
+  summarise(
+    median_score = median(para, na.rm = TRUE),
+    Q1 = quantile(para, 0.25, na.rm = TRUE),
+    Q3 = quantile(para, 0.75, na.rm = TRUE)
+  )
+
+print(summary_stats)
+# Run the Wilcoxon rank sum test
+wilcox_test <- wilcox.test(para ~ refer, data = data)
+print(wilcox_test)
+
+```
+
+## Multivariable Logistic Regression
+
+### Outcome:
+
+-   Multivariable logistic regression for estimated odds ratios (ORs) and 95% confidence intervals (CIs) for likelihood of outcome. Covariates include race/ethnicity, BMI, comorbidity, insurance status, etc.
+
+    ```{r}
+    glm(referral_to_gc ~ age + race1 + ethnic1 + bmi + ruca1 + primary + drive1 + comor1 + insurance_type + stage1, data=data, family = binomial) |>
+    tbl_regression(exponentiate = TRUE) |>
+    modify_caption("**Multivariable logistic regression**")
+
+    ```
+
+## Conclusion
+
+## References
+
+## Abstract
+
+## Manuscript Discussions

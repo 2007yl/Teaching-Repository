@@ -1,0 +1,26 @@
+---
+title: "README"
+date: 
+format: html
+editor: visual
+---
+
+## Path
+
+## Data
+
+raw data
+
+processed data
+
+## R scripts
+
+data_cleanup
+
+data_analysis
+
+## Output
+
+summary.qmd
+
+summary.html
