@@ -1,0 +1,593 @@
+## Learning from Endometrial Cancer Research {#slide-1}
+
+February 22, 2023
+
+## Slide 2
+
+![](ppt/media/image1.png "Picture 5")
+
+## Slide 3
+
+![](ppt/media/image2.png "Picture 4")
+
+https://cdn.kastatic.org/ka-perseus-images/3ce36e4344afc09823195b45d8ca765191f2e0d0.png
+
+## Slide 4
+
+![](ppt/media/image3.png "Picture 3")
+
+![Water with solid fill](ppt/media/image4.png "Graphic 5")
+
+![Upward trend outline](ppt/media/image6.png "Graphic 7")
+
+21%   BMI 22-27.2
+
+43%   BMI27.5-29.5
+
+273% BMI\>30
+
+## Slide 5
+
+![](ppt/media/image8.png "Picture 3")
+
+Relative risk: 3.3
+
+## Slide 6
+
+![](ppt/media/image8.png "Picture 3")
+
+![](ppt/media/image8.png "Picture 6")
+
+Time
+
+Odds ratio: 3.3
+
+## Slide 7
+
+![Diagram
+
+Description automatically generated](ppt/media/image9.png "Content Placeholder 3")
+
+Cancer patients
+
+Estrogen
+
+Endometrial cancer
+
+Community
+
+For any estrogen use, OR=8
+
+Mack et al (NEJM 1976) 
+
+n=63
+
+n=252
+
+Estrogens and Endometrial Cancer in a Retirement Community
+
+## Slide 8
+
+![Diagram
+
+Description automatically generated](ppt/media/image9.png "Content Placeholder 3")
+
+Endometrial Cancer patients
+
+Estrogen
+
+Endometrial cancer
+
+Cancer patients
+
+Other gynecologic cancer
+
+OR = 11.98
+
+Alternative analytic methods for case-control studies of estrogens and endometrial cancer
+
+Horwitz et al (NEJM 1978) 
+
+n=119
+
+n=119
+
+gynecologic cancer
+
+n=35
+
+n=84
+
+n=115
+
+n=4
+
+29%
+
+3%
+
+## Slide 9
+
+![Diagram
+
+Description automatically generated](ppt/media/image9.png "Content Placeholder 3")
+
+Endometrial Cancer patients
+
+Estrogen
+
+Endometrial cancer
+
+D&C patients
+
+OR = 2.3
+
+95%CI 1.26-4.25
+
+P =.005
+
+Alternative analytic methods for case-control studies of estrogens and endometrial cancer
+
+Horwitz et al (NEJM 1978) 
+
+D &C
+
+Hysterectomy
+
+n=149
+
+n=149
+
+n=44
+
+n=105
+
+n=126
+
+n=23
+
+30%
+
+15%
+
+## Slide 10
+
+![Diagram
+
+Description automatically generated](ppt/media/image9.png "Content Placeholder 3")
+
+Endometrial Cancer patients
+
+Estrogen
+
+Endometrial cancer
+
+D&C patients
+
+OR = 1.7
+
+95%CI 0.88-3.42
+
+P =.123
+
+Alternative analytic methods for case-control studies of estrogens and endometrial cancer
+
+Horwitz et al (NEJM 1978) 
+
+D &C
+
+Hysterectomy
+
+n=142
+
+n=89
+
+n=43
+
+n=99
+
+n=71
+
+n=18
+
+30%
+
+20%
+
+Stratified for bleeding
+
+Uterine bleeding
+
+Uterine bleeding
+
+## Slide 11
+
+![](ppt/media/image10.png "Picture 4")
+
+Hulka  et al (NEJM 1980) 
+
+RR = 3.9
+
+RR = 3.7 
+
+## Lessons learnt {#slide-12}
+
+Selection bias
+
+Especially when the selection condition is associated with exposure and outcome.
+
+Detection bias
+
+Multiple control groups
+
+## Treatment {#slide-13}
+
+Type I endometroid; type II serous
+
+Stage I, II, III, IV
+
+Histology grade 1-4
+
+Low risk, intermediate risk, high risk
+
+Survival, recurrence, quality of life
+
+## Q1: surgery + radiation vs surgery alone {#slide-14}
+
+![](ppt/media/image11.png "Picture 4")
+
+## Timeline   treatment {#slide-15}
+
+Portec-1 RCT Europe published in 2000
+
+GOG99 RCT us published in 2004
+
+Retrospective cohort study
+
+Adopt evidence into clinical practice   published in 2013
+
+  https://pubmed.ncbi.nlm.nih.gov/23376807/
+
+Portec-2 RCT
+
+Portec-3 RCT
+
+## Slide 16
+
+![](ppt/media/image12.png "Picture 3")
+
+## Slide 17
+
+![](ppt/media/image13.png "Picture 3")
+
+No further treatment
+
+Radiotherapy
+
+5-year recurrence
+
+Overall survival
+
+Stage IB IC Endometrial cancer
+
+TAH-BSO
+
+1990
+
+1997
+
+## Slide 18
+
+                         5-year Recurrence rate   5-year Survival rate   Endometrial cancer related Death rate   Complication rate
+  ---------------------- ------------------------ ---------------------- --------------------------------------- -------------------
+  Surgery alone          14%                      85%                    6%                                      6%
+  Surgery+Radiotherapy   4%                       81%                    9%                                      25%
+
+- Postoperative radiotherapy in stage-1 endometrial carcinoma reduces locoregional recurrence but has no impact on overall survival. 
+
+n=360
+
+n=354
+
+## Slide 19
+
+                         5-year Recurrence rate   Distant Metastases rate   Endometrial cancer related Death rate
+  ---------------------- ------------------------ ------------------------- ---------------------------------------
+  Surgery alone          18%                      5%                        8%
+  Surgery+Radiotherapy   5%                       6%                        11%
+
+- Postoperative radiotherapy reduces recurrence rate in high-risk patients
+- Postoperative radiotherapy is not indicated in low-risk patients
+- 
+
+"high risk" category of patients:  60 and over with deeply invasive grade 1--2  tumours  or superficially invasive grade-3  tumours , 
+
+## Q1: surgery + radiation vs surgery alone  {#slide-20}
+
+![](ppt/media/image14.png "Picture 6")
+
+## Slide 21
+
+![](ppt/media/image13.png "Picture 3")
+
+No further treatment
+
+Radiotherapy
+
+2-year recurrence
+
+4-year survival
+
+Stage IB IC stage II Endometrial cancer
+
+TAH-BSO
+
+1987
+
+1995
+
+## Slide 22
+
+                         2-year Recurrence rate   4-year Survival rate
+  ---------------------- ------------------------ ----------------------
+  Surgery alone          12%                      86%
+  Surgery+Radiotherapy   3%                       92%
+
+- Adjunctive  radiotherapy  in early stage intermediate risk endometrial carcinoma decreases the risk of recurrence, but should be limited to patients whose risk factors fit a high intermediate risk definition . 
+
+n=220
+
+n=190
+
+                         2-year Recurrence rate
+  ---------------------- ------------------------
+  Surgery alone          26%
+  Surgery+Radiotherapy   6%
+
+High-intermediate risk
+
+## Slide 23
+
+![](ppt/media/image15.png "Picture 4")
+
+- For high-risk disease, pelvic RT continues to be the most effective adjuvant treatment.
+- For low-risk disease, no adjuvant RT is indicated.
+- Ultimate goal:  maximizing both event-free and complication-free survival.    
+- Omitting RT increases the risk of recurrence. 
+- pelvic RT vs vaginal brachytherapy?
+
+## Q2:  P elvic RT vs vaginal brachytherapy   {#slide-24}
+
+![](ppt/media/image16.png "Picture 4")
+
+- Same efficacy in prevention 
+- Fewer adverse effects
+- Improved QOL
+
+## Slide 25
+
+![](ppt/media/image13.png "Picture 3")
+
+External beam radiotherapy
+
+VBRT
+
+vaginal brachytherapy
+
+VBT
+
+Vaginal recurrence
+
+Stage IB IC Stage II Endometrial cancer of high-intermediate risk
+
+TAH-BSO
+
+2002
+
+2008
+
+n=214
+
+n=213
+
+Median follow-up: 45 months
+
+## Slide 26
+
+         5-year Recurrence rate   5-year Survival rate   GI toxicity rate
+  ------ ------------------------ ---------------------- ------------------
+  EBRT   1.6%(0.5-4.9)            79.6%(71.2-88.0)       53.8%
+  VBT    1.8%(0.6-5.9)            84.8%(79.3-90.3)       12.6%
+
+- VBT is effective in ensuring vaginal control, with fewer gastrointestinal toxic effects than with EBRT. 
+- 
+- VBT should be the adjuvant treatment of choice for patients with endometrial carcinoma of high-intermediate risk.
+
+## Q2:  P elvic RT vs vaginal brachytherapy   {#slide-27}
+
+![](ppt/media/image17.png "Picture 4")
+
+2009
+
+## Slide 28
+
+![](ppt/media/image13.png "Picture 3")
+
+External beam radiotherapy
+
+vaginal brachytherapy
+
+2-year QOL
+
+Stage IB IC Stage II Endometrial cancer of high-intermediate risk
+
+TAH-BSO
+
+2002
+
+2008
+
+n=214
+
+n=213
+
+Baseline QOL
+
+## Slide 29
+
+Patients in the VBT group reported better social functioning and lower symptom scores . 
+
+2012: published 5-year QOL results
+
+VBT provides better  long-term health related quality of life
+
+2015: published 7+ year QOL results
+
+VBT group reported less bowl symptoms and less urinary symptoms.
+
+No difference in overall QOL and cancer survivorship.
+
+## Slide 30
+
+![](ppt/media/image15.png "Picture 4")
+
+- For high-risk disease, pelvic RT continues to be the most effective adjuvant treatment.
+- For low-risk disease, no adjuvant RT is indicated.
+- Ultimate goal:  maximizing both event-free and complication-free survival.    
+- Omitting RT increases the risk of recurrence. pelvic RT vs vaginal brachytherapy?
+
+## Slide 31
+
+![](ppt/media/image18.png "Picture 4")
+
+"within the HIR population, there may be stronger evidence of a decreased recurrence rate with the use of adjuvant radiation, leading us to expect an uptake of radiation use in this population."
+
+2013
+
+## Slide 32
+
+![](ppt/media/image19.png "Picture 1")
+
+https://sphweb.bumc.bu.edu/otlt/MPH-Modules
+
+## Slide 33
+
+![](ppt/media/image20.png "Picture 3")
+
+https://sites.pitt.edu/\~super1/lecture/lec19101/img038.JPG
+
+2004-2007
+
+Radiation rate
+
+50.9%
+
+48.2%
+
+n=2764
+
+n=1960
+
+Stage I
+
+Stage II
+
+High-Intermediate Risk
+
+2000-2007
+
+https://pubmed.ncbi.nlm.nih.gov/23376807/
+
+2000-2003
+
+Radiation rate
+
+The rate of adjuvant radiation in the US did not increase after publication of PORTEC1 and GOG99
+
+## Slide 34
+
+![](ppt/media/image21.png "Picture 3")
+
+2015
+
+Low risk: surveillance 
+
+High-intermediate risk: VBT
+
+? Chemoradiation vs chemo 
+
+GOG258 
+
+PORTEC 3
+
+## 2013-2022 {#slide-35}
+
+Histopathological characteristics
+
+Molecular phenotypes
+
+![](ppt/media/image22.png "Picture 6")
+
+Endometroid -- type I
+
+Other -- type II
+
+## Slide 36
+
+![](ppt/media/image23.png "Picture 4")
+
+2013
+
+Editorial Summary
+
+This might have clinical relevance for post-surgical adjuvant treatment of women with aggressive  tumours .
+
+![](ppt/media/image24.png "Picture 8")
+
+FDA   approved the programmed death-1 inhibitor pembrolizumab for any patient with mismatch repair deficiency and high microsatellite instability. 
+
+## Slide 37
+
+![](ppt/media/image25.png "Picture 4")
+
+2020
+
+- Performance of next-generation sequencing in biopsy specimens from patients with relapsed-refractory advanced permits triaging nearly one-fifth of patients to evidence-based investigational therapy.
+
+MATCH   is a  precision medicine  cancer treatment  clinical trial (2015- ) . 
+
+In this trial, people with cancer are assigned to receive treatment based on the  genetic  changes found in their tumors rather than the type of cancer.
+
+## Slide 38
+
+![](ppt/media/image26.png "Picture 5")
+
+2022
+
+## Slide 39
+
+![](ppt/media/image27.png "Picture 4")
+
+## Slide 40
+
+![](ppt/media/image28.png "Picture 4")
+
+## Q3:  chemoRT  vs RT {#slide-41}
+
+![](ppt/media/image29.png "Picture 4")
+
+## Slide 42
+
+![](ppt/media/image30.png "Picture 4")
+
+## Slide 43
+
+![](ppt/media/image31.png "Content Placeholder 3")
+
+## Slide 44
+
+https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga/studied-cancers/uterine
+
+https://www.annalsofoncology.org/article/S0923-7534(22)01207-8/pdf
+
+https://www.cancer.gov/types/uterine/research
