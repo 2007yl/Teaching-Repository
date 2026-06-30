@@ -73,10 +73,8 @@ t.test(salary_normal ~ male, data = data, var.equal = TRUE)
 # 1. Check normality by group
 by(data$salary_normal, data$rank, shapiro.test)
 
-
 # 2. Check variance equality
 bartlett.test(salary_normal ~ rank, data = data)
-
 
 # 3. One way ANOVA If normality and equal variance are reasonable
 
