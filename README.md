@@ -1,34 +1,37 @@
 ## Overview
 Archived code and slides for teaching Statistics and data analysis
 
-## Project1
-- Sample R code for teaching Statistical course Module 8
-- Sample Stata code for teaching Statistical course Module 8
+## Project-1 (Independent t-test)
+- Sample R code for Statistical course Module 8
+- Sample Stata code for Statistical course Module 8
 
-## Project2
-- Sample R code for teaching Statistical course Module 9
-- Sample Stata code for teaching Statistical course Module 9
+## Project-2 (Paired t-test)
+- Sample R code for Statistical course Module 9
+- Sample Stata code for Statistical course Module 9
 
-## Project3
+## Project-3
 R codebook 
 
-## Project4
+## Project-4
 Stata codebook
 
-## Project5
+## Project-5
 Introduction to R 
 
-## Project6
+## Project-6
 Introduction to Stata 
 
-## Project7
+## Project-7
 Introduction to Qualtrics 
 
-## Project8
+## Project-8
 Introduction to Study Design
 
-## Project9
+## Project-9
 Introduction to Statistical tests
 
-## Project10
+## Project-10
 Examples and quiz of Statistical tests
+
+## Project-11
+R project template
