@@ -1,3 +1,20 @@
+---
+title: "Statistical Test"
+author: "Yang Liu"
+date: 02-03-2025
+format: 
+   revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    theme: simple
+    incremental: true
+    scrollable: true
+execute:
+  echo: false
+  warning: false
+editor: visual
+---
 ## Thromboembolism {#slide-1}
 
 PE
