@@ -1,13 +1,17 @@
 ## Overview
 Archived code and slides for teaching Statistics and data analysis
 
-## Project-1 (Independent t-test)
-- Sample R code for Statistical course Module 8
-- Sample Stata code for Statistical course Module 8
+## Project-1 Sample R code for Statistical course
+- Independent t-test
+- One way ANOVA
+- Paired t-test
+- McNemar's test
 
-## Project-2 (Paired t-test)
-- Sample R code for Statistical course Module 9
-- Sample Stata code for Statistical course Module 9
+## Project-2 Sample Stata code for Statistical course
+- Independent t-test
+- One way ANOVA
+- Paired t-test
+- McNemar's test
 
 ## Project-3
 R codebook 
