@@ -1,0 +1,61 @@
+* Paired t-test
+* Import data
+import delimited "module_9_data.csv", clear
+
+* Check sample size
+count
+
+* Check if all participants have complete paired data
+generate pair_complete = !missing(avg_gcf3, avg_gcf6)
+
+tabulate pair_complete
+
+* Optional: view incomplete cases
+list avg_gcf3 avg_gcf6 if pair_complete == 0
+
+* Keep only complete paired cases if any case has incomplete data
+keep if pair_complete == 1
+
+* Check sample size of complete paired cases
+count
+
+* Create difference score
+generate diff_gcf = avg_gcf6 - avg_gcf3
+
+* Descriptive statistics for difference score
+summarize diff_gcf
+
+* More detailed descriptive statistics
+summarize diff_gcf, detail
+
+* Normality test of difference scores
+swilk diff_gcf
+
+* Visual check for extreme outliers
+graph box diff_gcf, ///
+    title("Boxplot of Difference Scores") ///
+    ytitle("avg_gcf6 - avg_gcf3")
+
+* Paired t-test
+ttest avg_gcf3 == avg_gcf6
+
+* McNemar's test
+* Check if all participants have complete paired data
+generate pair_complete = !missing(avg_gcf_medsplit3, avg_gcf_medsplit6)
+
+tabulate pair_complete
+
+* Optional: list incomplete paired cases
+list avg_gcf_medsplit3 avg_gcf_medsplit6 if pair_complete == 0
+
+* Keep only complete paired cases
+keep if pair_complete == 1
+
+* Display crosstable
+tabulate avg_gcf_medsplit3 avg_gcf_medsplit6
+
+* Display crosstable with percentages
+tabulate avg_gcf_medsplit3 avg_gcf_medsplit6, row column
+
+* McNemar's test
+mcc avg_gcf_medsplit3 avg_gcf_medsplit6
