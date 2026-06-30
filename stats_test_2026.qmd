@@ -1,0 +1,497 @@
+## Core Curriculum  {#slide-1}
+
+2-16-2026
+
+## Proper data {#slide-2}
+
+Valid
+
+Reliable
+
+Sufficient
+
+## Valid data  {#slide-3}
+
+Internal validity
+
+Data is accurate and true
+
+Study design effectively collects outcome data
+
+External validity:  results apply to the broader population
+
+a representative sample size
+
+clear inclusion/exclusion criteria
+
+multi-center trials
+
+Validated instruments
+
+New
+
+adapted
+
+## FREE Resource!  {#slide-4}
+
+Assistance with survey and questionnaire design from the Institute for Social Research
+
+Click here for more information and to submit a request
+
+## Existing Instrument {#slide-5}
+
+Pilot test
+
+https://bookdown.org/alex_leith/mc451/selecting-and-adapting-research-scales.html
+
+## Proper Analysis Example {#slide-6}
+
+Scenario:  A randomized trial with 150 patients assigned equally to Drug A and Drug B, with clear inclusion/exclusion criteria, and standardized measurement of blood pressure.
+
+Action:  Statistical comparison is suitable; sample size is reasonable, methods are valid.
+
+## Improper Analysis Example {#slide-7}
+
+Scenario:  Comparing outcomes from a handful of case reports (e.g., 2 with Drug A, 1 with Drug B), using a t-test.
+
+Action:  This is inappropriate; data are insufficient and not systematically collected.
+
+## Proper dataset format {#slide-8}
+
+![](ppt/media/image1.png "Picture 3")
+
+## Proper statistical methods {#slide-9}
+
+Statistical methods should match 
+
+data type (e.g., categorical, continuous) 
+
+study design (e.g., descriptive, randomized trial, prediction modeling).
+
+## Data type {#slide-10}
+
+Categorical 
+
+Continuous
+
+## Slide 11
+
+![](ppt/media/image2.png "Picture 3")
+
+## Slide 12
+
+![](ppt/media/image3.png "Picture 3")
+
+## Slide 13
+
+![](ppt/media/image4.png "Picture 3")
+
+## Likert-type data: ordinal data {#slide-14}
+
+![What is a Likert Scale? Guide & Examples \| Figma](ppt/media/image5.png "Picture 2")
+
+## Proper Analysis Example {#slide-15}
+
+Scenario:  Comparing mean cholesterol levels (continuous data) between two independent groups with an independent samples t-test.
+
+Action:  Test matches data type and structure.
+
+## Improper Analysis Example {#slide-16}
+
+Scenario:  Using a chi-square test to compare means of cholesterol (continuous data).
+
+Action:  Wrong test for the data type.
+
+## Proper assumptions {#slide-17}
+
+Many tests have assumptions: normality, independence, etc.
+
+If assumptions aren't checked or aren't met, results can be misleading.
+
+## Slide 18
+
+![](ppt/media/image6.png "Picture 3")
+
+## Slide 19
+
+![When Should You Delete Outliers from a Data Set? - Atlan \| Humans of Data](ppt/media/image7.jpeg "Picture 4")
+
+## Normality test {#slide-20}
+
+Shapiro Wilk test
+
+swilk  age
+
+P\<0.05
+
+Normal distribution is not assumed
+
+Median(IQR)
+
+P≥0.05
+
+Normal distribution is assumed
+
+Mean(SD)
+
+## Mean vs median {#slide-21}
+
+Both measure central tendency
+
+Median: reduce noise
+
+Example:
+
+Age 20, 30, 35, 36, 38, 39, 80
+
+Mean: 39.7
+
+Median: 36
+
+## Statistical test {#slide-22}
+
+Independent data
+
+Median(IQR)
+
+Wilcoxon rank sum test
+
+Mean(SD)
+
+Independent samples t-test
+
+## Slide 23
+
+  Variables        Normal distribution   
+  ---------------- --------------------- ------------
+  Age              Yes                   Mean( sd )
+  BMI              Yes                   Mean( sd )
+  Length of stay   Yes                   Mean( sd )
+
+## Slide 24
+
+  Variables        Normal distribution   
+  ---------------- --------------------- -------------
+  Age              Yes                   Mean( sd )
+  BMI              Yes                   Mean( sd )
+  Length of stay   No                    Median(IQR)
+
+## Slide 25
+
+  Variables        Normal distribution   
+  ---------------- --------------------- -------------
+  Age              Yes                   Median(IQR)
+  BMI              Yes                   Median(IQR)
+  Length of stay   No                    Median(IQR)
+
+## Proper Analysis Example {#slide-26}
+
+Scenario:  Authors perform a Shapiro-Wilk test for normality before using a t-test. If assumptions fail, they use the Wilcoxon rank sum test.
+
+Action:  Appropriate checking and adaptation to statistical requirements.
+
+## Improper Analysis Example {#slide-27}
+
+Scenario:  Authors blindly use t-tests on strongly skewed data without checking normality, ignoring outliers.
+
+Action:  Results may not be valid or generalizable.
+
+## True significant difference {#slide-28}
+
+Significant differences may arise if groups differ in baseline characteristics ("confounding"). It's crucial to examine and adjust for comparability.
+
+## Proper Analysis Example {#slide-29}
+
+Scenario:  Before comparing treatment outcomes, authors present a table of baseline variables (age, sex, comorbidities) and use regression or propensity score methods to adjust for differences.
+
+Action:  Ensures groups are comparable---reducing bias.
+
+## Improper Analysis Example {#slide-30}
+
+Scenario:  Authors report Drug A is better, but the group receiving Drug A is 10 years younger and healthier (no adjustment).
+
+Action:  Significant difference likely due to group differences, not treatment effect.
+
+## Real-life example {#slide-31}
+
+Uncontrolled Demographic Factors :  The MRFIT study, which found low cholesterol was associated with higher death rates, but failed to control for heavy alcohol consumption, which caused both low cholesterol and accidental deaths.
+
+## Proper use of statistical techniques {#slide-32}
+
+Incorrect technique choice or execution---e.g., failure to account for small sample size or paired data.
+
+## Slide 33
+
+  Variables           Hypertension Yes n=79   Hypertension No n=46
+  ------------------- ----------------------- ----------------------
+  BMI                                         
+     Under weight     2 (2.5%)                1 (2.2%)
+     Normal           66 (83.5%)              27 (58.7%)
+     Obesity          8 (10.1%)               12 (26.1%)
+     Morbid obesity   3 (3.8%)                6 (13.0%)
+
+37.5% cells have a count less than 5
+
+## Chi-square test VS Fisher's exact test {#slide-34}
+
+\<20% 
+
+Chi-square test or Fisher's exact test
+
+\>= 20% and \<= 50%
+
+Fisher's exact test
+
+\>50%
+
+Neither
+
+## Slide 35
+
+![](ppt/media/image8.png "Picture 4")
+
+![Paired T-Test - Definition, Formula \...](ppt/media/image9.png "Picture 4")
+
+![](ppt/media/image10.png "Picture 5")
+
+## Statistical test {#slide-36}
+
+Paired continuous data
+
+Median(IQR)
+
+Wilcoxon signed rank test
+
+Mean(SD)
+
+paired t-test
+
+## Statistical test {#slide-37}
+
+Paired categorical data
+
+n(%)
+
+McNemar's test
+
+## Likert-type data {#slide-38}
+
+Descriptive statistics for individual item
+
+\*\*\*C ategorical, number (percentage)
+
+\*\* " C ontinuous", median 
+
+ranked categories rather than precise, equal intervals.
+
+\* " C ontinuous", mean, not recommended 
+
+## Slide 39
+
+![](ppt/media/image11.png "Picture 4")
+
+## Slide 40
+
+![](ppt/media/image12.png "Picture 4")
+
+## Slide 41
+
+![](ppt/media/image13.png "Picture 4")
+
+https://www.mdpi.com/2673-8392/5/1/18
+
+## Proper Analysis Example {#slide-42}
+
+Scenario:  Authors use paired analyses for before-and-after measurements.
+
+Action:  Matches test to design.
+
+## Improper Analysis Example {#slide-43}
+
+Scenario:  Authors use an unpaired t-test on paired data.
+
+Action:  Techniques don't match data.
+
+## Properly report the type of test used/ significance level {#slide-44}
+
+A transparent report names statistical tests used and defines the significance threshold (e.g., p\<0.05), so readers interpret results confidently.
+
+## Proper Analysis Example {#slide-45}
+
+Scenario:  "We used the Wilcoxon rank sum test to compare median survival, with significance set at p\<0.05."
+
+Action:  Complete and clear, readers know the methods.
+
+## Improper Analysis Example {#slide-46}
+
+Scenario:  "Survival was compared and found significant"---no test or threshold named.
+
+Action:  Lack of clarity; results are hard to interpret or reproduce.
+
+## Report sensitivity and  specificity {#slide-47}
+
+Diagnostic performance requires both sensitivity (true positive rate) and specificity (true negative rate). Reporting only one is incomplete and potentially misleading.
+
+## Proper Analysis Example {#slide-48}
+
+Scenario:  Authors report a new blood test has sensitivity 90% and specificity 85% for detecting heart attack.
+
+Action:  Both metrics included for full diagnostic value.
+
+## Improper Analysis Example {#slide-49}
+
+Scenario:  "Our test caught 90% of heart attacks" (sensitivity), but specificity (false positive rate) is not reported.
+
+Action:  Without specificity, risk of many false positives is unknown.
+
+## Report missing data {#slide-50}
+
+## Exercise {#slide-51}
+
+## 1. Comparing Mean Blood Pressure Between Two Groups {#slide-52}
+
+Scenario:  You want to compare mean systolic blood pressure between patients treated with Drug A vs. Drug B.
+
+Test:  
+
+A. Independent samples t-test 
+
+B. Wilcoxon rank sum test 
+
+## 2. Change in Pain Score Pre- vs. Post-Treatment {#slide-53}
+
+Scenario:  Measuring pain scores (0--10) in the same patients before and after physical therapy.
+
+Test:  
+
+A. Paired t-test
+
+B. Wilcoxon signed rank test 
+
+## 3. Comparing Rate of Post-op Infection in Surgery Types {#slide-54}
+
+Scenario:  Comparing infection rates (yes/no) after two types of surgical procedures.
+
+Test:  
+
+A. Chi-square test for independence or Fisher's exact test 
+
+B. Wilcoxon rank sum test 
+
+## 4. Association Between Smoking (Y/N) and COPD (Y/N) {#slide-55}
+
+Scenario:  Examining the association between smoking status and COPD diagnosis in a cohort.
+
+Test:  
+
+A. Chi-square test for independence 
+
+B. Fisher's exact test 
+
+## 5. Correlation Between LDL and Triglycerides {#slide-56}
+
+Scenario:  You hypothesize that higher LDL cholesterol is correlated with higher triglyceride levels. 
+
+LDL cholesterol: continuous, normal distribution
+
+Triglyceride: continuous, not normal distribution
+
+Test:  
+
+A. Pearson correlation 
+
+B. Spearman rank correlation 
+
+## 6. Comparing Median Survival Times {#slide-57}
+
+Scenario:  Do two cancer treatment groups have different median survival times?
+
+Test:  
+
+A. Wilcoxon rank sum test 
+
+B. Wilcoxon signed rank test
+
+## 7. Prevalence of Complications Before and After Intervention {#slide-58}
+
+Scenario:  Did a new protocol reduce the number of patients experiencing a complication (before/after intervention) in paired data?
+
+Test:  
+
+A. McNemar's test
+
+B. Chi-square test
+
+## 8. Generic Drug Compared to Brand {#slide-59}
+
+Scenario:  Is a generic drug "not worse" than the brand in controlling blood glucose (HbA1c levels)?
+
+Test:  
+
+A.  Non-inferiority test (a one-sided t-test with pre-specified margin).
+
+B. Independent samples t-test
+
+## 9. Comparing clinical outcomes  {#slide-60}
+
+Scenario:  You want to compare clinical outcomes across two groups in an observational study, adjusting for baseline characteristics. Case group n=48
+
+   Control group n=523
+
+Method:  
+
+A. Propensity score matching
+
+B.  Nothing
+
+## 10. Assessing Effect of Three Therapies on Depression Scores {#slide-61}
+
+Scenario:  Three groups receive different psychotherapies, and you compare their post-treatment depression scores.
+
+Test:  
+
+A. ANOVA (if data are normal); Kruskal-Wallis test (non-parametric).
+
+B. Independent samples t-test or Wilcoxon rank sum test
+
+## 11. Assessing Relationship Between Pain Improvement and Age  {#slide-62}
+
+Scenario:  Does greater age correlate with pain improvement (ranked outcome, not normally distributed)?
+
+Test:  
+
+A. Spearman rank correlation
+
+B. Pearson correlation
+
+## 12. Comparing Proportions With Very Small Sample Sizes {#slide-63}
+
+Scenario:  In a pilot study, you want to know if the rate of rare side effects differs between two drugs, with low event counts.
+
+Test:  
+
+A. Fisher's exact test
+
+B. Chi-square test
+
+## Analysis of the results (1-5) {#slide-64}
+
+Were the data worthy of statistical analysis? If so, were the methods of analysis appropriate to the source and nature of the data? 	
+
+Were the appropriate assumptions met for the statistical methods utilized? 	
+
+Were there sufficient analyses to ascertain whether "significant difference" might, in fact, have been due to a lack of comparability of the groups: (i.e. age, sex, clinical characteristics etc.) ? 	
+
+Was there an improper use of statistical techniques? 	
+
+Was there mention of the type of test used or the significance level? 	
+
+Was there use of measured sensitivity without specificity?	
+
+## Slide 65
+
+![](ppt/media/image14.jpeg "Online Media 3")
+
+## Slide 66
+
+![](ppt/media/image15.jpeg "Online Media 3")
