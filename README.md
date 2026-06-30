@@ -2,12 +2,12 @@
 Archived code and slides for teaching Statistics and data analysis
 
 ## Project1
-Sample R code for teaching Statistical course Module 8
-Sample Stata code for teaching Statistical course Module 8
+- Sample R code for teaching Statistical course Module 8
+- Sample Stata code for teaching Statistical course Module 8
 
 ## Project2
-Sample R code for teaching Statistical course Module 9
-Sample Stata code for teaching Statistical course Module 9
+- Sample R code for teaching Statistical course Module 9
+- Sample Stata code for teaching Statistical course Module 9
 
 ## Project3
 R codebook 
