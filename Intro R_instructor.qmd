@@ -1,0 +1,681 @@
+---
+title: "Introduction to R"
+author: "Yang Liu"
+date: 12-20-2022
+format:
+  revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    #logo: "https://www.uofmhealth.org/sites/default/files/UM-Health_Logo-Horizontal-White.png"
+    #footer: "[R]"
+    css: ["theme/theme.css"]
+    theme: simple
+    echo: true   #include codes and results
+    incremental: true
+    scrollable: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## RStudio Cloud {background-image="images/cloud.png"}
+
+[RStudio Cloud](https://posit.cloud/spaces/308660/content/5063771)
+
+R, RStudio, data, codes for this workshop are preloaded
+
+## Contents
+
+::::: columns
+::: {.column width="50%"}
+### Structure
+
+-   Basics
+-   Data Management
+-   Data Visualization
+-   Data Summary
+:::
+
+::: {.column width="50%"}
+### Course datasets
+
+-   covid_testing.xlsx
+
+-   covid_result.xlsx
+
+-   employee.dta
+:::
+:::::
+
+## Basics
+
+::::: columns
+::: {.column width="50%"}
+### Script editor
+
+-   to type, run, and **save** your code
+
+-   to display outcome
+
+### Console
+
+-   to type and run your code
+-   to display outcome
+:::
+
+::: {.column width="50%"}
+### Environment
+
+-   current datasets
+-   variables
+
+### Viewer
+
+-   files: Intro R_student.qmd
+-   packages
+-   outcome (graph, table, slide)
+:::
+:::::
+
+## Get ready
+
+::::: columns
+::: {.column width="50%"}
+### Start a new project
+
+-   Click right top corner
+-   Start a new project (Folder)
+:::
+
+::: {.column width="50%"}
+### Set working directory
+
+-   Click Session
+-   Set Working Directory
+-   Choose Directory:/cloud/project
+:::
+:::::
+
+## Install packages
+
+install these packages once.
+
+````         
+``` {{r}}
+#code chunk#1 
+install.packages("tidyverse") #tidy data
+install.packages("gtsummary") #create stats summary table
+install.packages("labelled") #label variables
+install.packages("skimr") #dataset summary
+install.packages("haven") #import SPSS, Stata, SAS data
+install.packages("readr") #import excel data
+install.packages("qualtRics") #import Qualtrics data .csv
+install.packages("Rcpp") #help to import data
+```
+````
+
+## Load packages
+
+tell R to load packages every session
+
+```{r}
+#code chunk#2
+                 
+library(tidyverse)
+library(gtsummary)
+library(labelled)
+library(skimr)
+library(haven)
+library(readxl)
+library(qualtRics)
+```
+
+## Main Packages
+
+::::: columns
+::: {.column width="40%"}
+tidyverse --- Tidy data ![](images/tv.jfif){width="200"}
+:::
+
+::: {.column width="60%"}
+ggplot2 --- Grammar of Graphics ![](images/gglogo.png){width="200"} gtsummary --- Grammar of Tables ![](images/gtlogo.png){width="200"}
+:::
+:::::
+
+## Import data
+
+Click File, Import Dataset, From Excel ...\
+code chunk#3
+
+```{r}
+covid_testing <- read_excel("covid_testing.xlsx")
+View(covid_testing)
+```
+
+## R programming
+
+-   1+1 = 2 (human)
+
+-   1+1 = x (human)
+
+-   x \<- 1+1 (R)
+
+-   object \<- input & argument (R)\
+    code chunk#4
+
+```{r}
+#| output-location: fragment
+x <- 1+1
+x
+```
+
+-   Your turn: change 1+1 to 4+6, run\
+
+## R programming
+
+### object \<- function(x)
+
+-   function --- does stuff
+
+-   object --- stores output
+
+-   example
+
+-   covid_testing \<- read_excel("covid_testing.xlsx")
+
+### function(x)
+
+-   example
+-   view(covid_testing)
+
+## The pipe \|\> (%\>%)
+
+::::: columns
+::: {.column width="50%"}
+x \|\>
+
+function1 \|\>
+
+function2 \|\>
+
+function3
+:::
+
+::: {.column width="50%"}
+code chunk#5
+
+```{r}
+#| output-location: column-fragment
+covid_testing |>
+  print() |>
+  dim() # dimensions(#observations, #variables) 
+```
+:::
+:::::
+
+## Inspect data
+
+View dataset: click tab
+
+columns - variables\
+rows - observations\
+code chunk#6
+
+```{r}
+#| output-location: column-fragment
+glimpse(covid_testing)
+```
+
+## Inspect data
+
+code chunk#7
+
+```{r}
+#| output-location: slide
+skim(covid_testing)
+```
+
+## Recap
+
+-   Start a project/set working directory
+
+-   Install /load packages
+
+-   Import data
+
+-   Inspect data
+
+## Data Management
+
+Merge two datasets: covid_testing and covid_result
+
+import covid_result\
+code chunk#8
+
+```{r}
+#| output-location: fragment
+covid_result <- read_excel("covid_result.xlsx")
+View(covid_result)
+dim(covid_result)
+```
+
+## Merge
+
+code chunk#9
+
+```{r}
+#| output-location: fragment
+covid_total <- full_join(covid_testing, covid_result, by="mrn")
+view(covid_total)
+dim(covid_total)
+```
+
+## Subset - select variables
+
+Function: select
+
+output \<- select(x, var1, var2, var3)\
+code chunk#10 
+
+```{r}
+#| output-location: fragment
+data1<- select(covid_total, mrn, age, result)
+print(data1)
+dim(data1)
+```
+
+## Subset - exclude variables
+
+output \<- select(x, -var1, -var2, -var3)\
+code chunk#11 
+
+```{r}
+#| output-location: fragment
+data2<- select(covid_total, -mrn)
+print(data2)
+dim(data2)
+```
+
+## Subset - select observations
+
+Function: filter
+
+filter chooses observations that only match the condition.
+
+Example: filter to get all covid testing valid results (positive or negative)\
+
+output \<- filter(x, argument)\
+code chunk#12 
+
+```{r}
+#| output-location: fragment
+valid <- filter(covid_total, result != "invalid")
+print(valid)
+dim(valid)
+```
+
+## label variables
+
+x \|\>
+
+set_variable_labels(
+
+var1 = "label1",
+
+var2 = "label2"
+
+)\
+code chunk#13
+
+```{r}
+#| output-location: fragment
+covid_total <- 
+  covid_total |>
+   set_variable_labels(
+     pan_day = "Day of the pandemic",
+     age = "Age")
+var_label(covid_total)
+```
+
+## Recap
+
+### Operators
+
+-   \<-
+
+-   \|\>
+
+### Functions
+
+-   full_join
+
+-   select
+
+-   filter
+
+-   set_variable_lables\
+
+## Data type
+
+![](images/datatype.png){fig-align="center"}
+
+## Visualize data - Histogram
+
+Continuous - Histogram
+
+Categorical - Bar graph
+
+For histograms, the x-axis variable is continuous. Plot covid test counts during the first a few weeks of pandemic.\
+code chunk#14
+
+```{r}
+#| output-location: fragment
+covid_total |>
+  ggplot(aes(x= pan_day)) +
+  geom_histogram()
+```
+
+## Visualize data - Histogram
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+#code chunk#15
+covid_total |>
+  ggplot(aes(x= pan_day)) +
+  geom_histogram(binwidth=1)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#code chunk#16
+covid_total |>
+  ggplot(aes(x= pan_day, fill = result)) +
+  geom_histogram(binwidth=1)
+```
+:::
+:::::
+
+## Visualize data - Bar graph
+
+For bar graphs, the x-axis variable is categorical
+
+code chunk#17
+
+```{r}
+#| output-location: fragment
+covid_total |>
+   ggplot(aes(x = result)) +
+   geom_bar()
+```
+
+## Visualize data - Bar graph
+
+code chunk#18
+
+```{r}
+#| output-location: fragment
+covid_total |>
+   ggplot(aes(x = gender, fill = result)) +
+   geom_bar()
+```
+
+## Visualize data - Scatter plot
+
+Scatter plot of age vs time colored by gender, faceted by covid testing result
+
+::: panel-tabset
+## Code#19
+
+```{r}
+#| eval: false
+covid_total |>
+  filter(result != "invalid") |>
+  ggplot(aes(x = pan_day, y = age, color = gender)) +
+  geom_point() +
+  facet_grid(~result)
+```
+
+## Plot
+
+```{r}
+#| echo: false
+covid_total |>
+  filter(result != "invalid") |>
+  ggplot(aes(x = pan_day, y = age, color = gender)) +
+  geom_point() +
+  facet_grid(~result)
+```
+:::
+
+## Recap
+
+-   data visualization --- ggplot2
+
+-   ggplot(aes(x= var, y=var, color=var)) +
+
+    geom_function()
+
+## Summary statistics
+
+Create descriptive and summary tables
+
+continuous variable: median(IQR)
+
+categorical variable: n(%)\
+code chunk#20
+
+```{r}
+#| output-location: slide
+covid_total |>
+  tbl_summary()
+```
+
+## Summary statistics
+
+exclude mrn
+
+exclude variables that need to be grouped\
+code chunk#21
+
+```{r}
+#| output-location: slide
+covid_total |>
+  select(-mrn, -clinic_name) |>
+  tbl_summary()
+```
+
+## Comparing group demographics
+
+Describe demographics of covid positive group and covid negative group
+
+code chunk#22
+
+```{r}
+#| output-location: slide
+covid_total |>
+  select(-mrn, -clinic_name) |>
+  filter(result != "invalid") |>
+  tbl_summary(
+    by = result
+  )
+```
+
+## Bivariate analysis
+
+Covid positive vs covid negative
+
+Question#1: if the proportion of gender is different?
+
+Question#2: if the distribution of days of pandemic is different?
+
+Question#3: if the distribution of age is different?\
+code chunk#23
+
+```{r}
+#| output-location: slide
+covid_total |> 
+  select(-mrn, -clinic_name) |>
+  filter(result != "invalid") |>
+  tbl_summary(
+    by = result
+  ) |>
+  add_p ()
+```
+
+## Your turn
+
+create a summary table by gender\
+dataset: covid_total\
+variables: mrn, age, gender, clinic_name, result\
+code chunk#24
+
+````         
+``` {{r}}
+object |>
+  function(-var, -var) |>
+  function(
+    by = var
+ )
+```
+````
+
+## Your turn (solution)
+
+```{r}
+#| output-location: slide
+covid_total |>
+  select(-mrn, -clinic_name) |>
+  tbl_summary(
+    by = gender
+  )
+```
+
+## Alternative: Stata&R
+
+Tidy data in Stata\
+code chunk#25
+
+```{r}
+employee <- read_dta("employee.dta")
+View(employee)
+```
+
+## Alternative: Stata&R
+
+Create tables in R\
+code chunk#26
+
+```{r}
+#| output-location: slide
+employee |>
+  select(-id) |>
+  tbl_summary()
+```
+
+## Alternative: Stata&R
+
+code chunk#27
+
+```{r}
+#| output-location: slide
+employee |>
+  select(-id) |>
+  mutate_at("jobcat", as_factor) |>
+  tbl_summary()
+```
+
+## Missing values
+
+-   suppress printing count of unknown values\
+    code chunk#28
+
+```{r}
+#| output-location: slide
+employee |>
+  select(-id) |>
+  tbl_summary(
+      missing ="no"
+)  #n=474
+```
+
+## Missing values
+
+-   remove all observations with missing values\
+    code chunk#29
+
+```{r}
+#| output-location: slide
+employee |>
+  select(-id) |>
+  drop_na() |>
+  tbl_summary()  #n=473
+```
+
+## Recap
+
+-   summary statistics --- gtsummary\
+-   tbl_summary()
+
+## Recap
+
+-   Basics of R programming
+-   Data management
+-   Data Visualization
+-   Data summary
+
+## Main Packages
+
+::::: columns
+::: {.column width="40%"}
+tidyverse --- Tidy data ![](images/tv.jfif){width="200"}
+:::
+
+::: {.column width="60%"}
+ggplot2 --- Grammar of Graphics ![](images/gglogo.png){width="200"} gtsummary --- Grammar of Tables ![](images/gtlogo.png){width="200"}
+:::
+:::::
+
+## Acknowledgement
+
+<https://stephan-kadauke.quarto.pub/intro-to-r-for-clinical-data-rmed2022>
+
+<https://www.danieldsjoberg.com/clinical-reporting-gtsummary-rmed>/
+
+## Thank you for taking the time to learn R
+
+-   Install R and RStudio on your computer
+-   Install R packages
+-   Learning by Doing
+-   Codebook: Intro R_student.qmd
+
+## Self-teaching website
+
+https://bookdown.org/pdr_higgins/rmrwr/
+
+## Install R and RStudio
+
+::::: columns
+::: {.column width="50%"}
+### For Windows users
+
+[Download R for Windows](https://cran.rstudio.com/bin/windows/base/R-4.5.2-win.exe)
+
+[Download RStudio for Windows](https://download1.rstudio.org/electron/windows/RStudio-2025.09.2-418.exe)
+:::
+
+::: {.column width="50%"}
+### For macOS users
+
+[Download R for macOS 11 and higher](https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.5.2-arm64.pkg)
+
+[Download RStudio for macOS](https://download1.rstudio.org/electron/macos/RStudio-2025.09.2-418.dmg)
+:::
+:::::
+
+## Support
+
+-   Email: ylyl\@med.umich.edu anytime
+-   Schedule a 30-min meeting (two-week)
+-   Request a 60-min workshop (four-week)

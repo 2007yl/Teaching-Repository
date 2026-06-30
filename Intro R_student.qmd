@@ -1,0 +1,498 @@
+---
+title: "Introduction to R"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+## Install packages
+
+```{r}
+#code chunk#1 
+install.packages("tidyverse") #tidy data
+install.packages("gtsummary") #create stats summary table
+install.packages("labelled") #label variables
+install.packages("skimr") #dataset summary
+install.packages("haven") #import SPSS, Stata, SAS data
+install.packages("readr") #import excel data
+install.packages("qualtRics") #import Qualtrics data .csv
+install.packages("Rcpp") #help to import data
+```
+
+## Load packages
+
+tell R to load packages every session
+
+```{r}
+#code chunk#2
+       
+library(tidyverse)
+library(gtsummary)
+library(labelled)
+library(skimr)
+library(haven)
+library(readxl)
+library(qualtRics)
+```
+
+## Main Packages
+
+tidyverse --- Tidy data
+
+ggplot2 --- Grammar of Graphics
+
+gtsummary --- Grammar of Tables
+
+## Import data
+
+Click File, Import Dataset, From Excel ...\
+
+```{r}
+#code chunk#3
+covid_testing <- read_excel("covid_testing.xlsx")
+View(covid_testing)
+```
+
+## R programming
+
+```{r}
+#code chunk#4
+x <- 1+1
+x
+```
+
+-   Your turn: change 1+1 to 4+6, run\
+
+## R programming
+
+object \<- function(x)
+
+function(x)
+
+## The pipe \|\> (%\>%)
+
+x \|\>
+
+function1 \|\>
+
+function2 \|\>
+
+function3
+
+```{r}
+#code chunk#5
+covid_testing |>
+  print() |>
+  dim() # dimensions(#observations, #variables) 
+```
+
+## Inspect data
+
+```{r}
+#code chunk#6
+glimpse(covid_testing)
+```
+
+## Inspect data
+
+```{r}
+#code chunk#7
+skim(covid_testing)
+```
+
+## Data Management
+
+Merge two datasets: covid_testing and covid_result
+
+first import covid_result
+
+```{r}
+#code chunk#8
+covid_result <- read_excel("covid_result.xlsx")
+View(covid_result)
+dim(covid_result)
+```
+
+## Merge
+
+```{r}
+#code chunk#9
+covid_total <- full_join(covid_testing, covid_result, by="mrn")
+view(covid_total)
+dim(covid_total)
+```
+
+## Subset - select variables
+
+Function: select
+
+output \<- select(x, var1, var2, var3)
+
+```{r}
+#code chunk#10
+data1<- select(covid_total, mrn, age, result)
+print(data1)
+dim(data1)
+```
+
+## Subset - exclude variables
+
+output \<- select(x, -var1, -var2, -var3)
+
+```{r}
+#code chunk#11
+data2<- select(covid_total, -mrn)
+print(data2)
+dim(data2)
+```
+
+## Subset - select observations
+
+Function: filter
+
+output \<- filter(x, argument)
+
+```{r}
+#code chunk#12
+valid <- filter(covid_total, result != "invalid")
+print(valid)
+dim(valid)
+```
+
+## label variables
+
+```{r}
+#code chunk#13
+covid_total <- 
+  covid_total |>
+   set_variable_labels(
+     pan_day = "Day of the pandemic",
+     age = "Age")
+var_label(covid_total) #check variable labels
+```
+
+## Data type
+
+-   continuous
+-   categorical
+
+## Visualize data - Histogram
+
+```{r}
+#code chunk#14
+covid_total |>
+  ggplot(aes(x= pan_day)) +
+  geom_histogram()
+```
+
+## Visualize data - Histogram
+
+```{r}
+#code chunk#15
+covid_total |>
+  ggplot(aes(x= pan_day)) +
+  geom_histogram(binwidth=1)
+```
+
+```{r}
+#code chunk#16
+covid_total |>
+  ggplot(aes(x= pan_day, fill = result)) +
+  geom_histogram(binwidth=1)
+```
+
+## Visualize data - Bar graph
+
+For bar graphs, the x-axis variable is categorical
+
+```{r}
+#code chunk#17
+covid_total |>
+   ggplot(aes(x = result)) +
+   geom_bar()
+```
+
+## Visualize data - Bar graph
+
+```{r}
+#code chunk#18
+covid_total |>
+   ggplot(aes(x = gender, fill = result)) +
+   geom_bar()
+```
+
+## Visualize data - Scatter plot
+
+Scatter plot of age vs time colored by gender, faceted by covid testing result
+
+```{r}
+#Code chunk#19
+covid_total |>
+  filter(result != "invalid") |>
+  ggplot(aes(x = pan_day, y = age, color = gender)) +
+  geom_point() +
+  facet_grid(~result)
+```
+
+## Summary statistics
+
+```{r}
+#code chunk#20
+covid_total |>
+  tbl_summary()
+```
+
+## Summary statistics
+
+exclude mrn
+
+exclude variables that need to be grouped\
+
+```{r}
+#code chunk#21
+covid_total |>
+  select(-mrn, -clinic_name) |>
+  tbl_summary()
+```
+
+## Comparing group demographics
+
+Describe demographics between covid positive group and covid negative group
+
+```{r}
+#code chunk#22
+covid_total |>
+  select(-mrn, -clinic_name) |>
+  filter(result != "invalid") |>
+  tbl_summary(
+    by = result
+  )
+```
+
+## Bivariate analysis
+
+```{r}
+#code chunk#23
+covid_total |> 
+  select(-mrn, -clinic_name) |>
+  filter(result != "invalid") |>
+  tbl_summary(
+    by = result
+  ) |>
+  add_p ()
+```
+
+## Your turn
+
+create a summary table of age and result by gender\
+dataset: covid_total\
+variables: mrn, age, gender, clinic_name, result\
+
+```{r}
+#code chunk#24
+object |>
+  function(-var, -var) |>
+  function(
+    by = var
+ )
+```
+
+## Alternative: Stata&R
+
+Tidy data in Stata\
+Import
+
+```{r}
+#code chunk#25
+employee <- read_dta("employee.dta")
+View(employee)
+```
+
+## Alternative: Stata&R
+
+Create tables in R
+
+```{r}
+#code chunk#26
+employee |>
+  select(-id) |>
+  tbl_summary()
+```
+
+```{r}
+#code chunk#27 show stata labels
+employee |>
+  select(-id) |>
+  mutate_at("jobcat", as_factor) |>
+  tbl_summary()
+```
+
+## Missing values
+
+-   suppress printing count of unknown values
+
+```{r}
+#code chunk#28
+employee |>
+  select(-id) |>
+  tbl_summary(
+      missing ="no"
+)  #n=474
+```
+
+-   remove all observations with missing values
+
+```{r}
+#code chunk#29
+employee |>
+  select(-id) |>
+  drop_na() |>
+  tbl_summary()  #n=473
+```
+
+## Acknowledgement
+
+<https://stephan-kadauke.quarto.pub/intro-to-r-for-clinical-data-rmed2022>
+
+<https://www.danieldsjoberg.com/clinical-reporting-gtsummary-rmed>/
+
+## Thank you for taking the time to learn R
+
+Install R and RStudio on your computer
+
+Install R packages
+
+Learning by Doing
+
+## Install R and RStudio
+
+### For Windows users
+
+[Download R for Windows](https://cran.rstudio.com/bin/windows/base/R-4.5.2-win.exe)
+
+[Download RStudio for Windows](https://download1.rstudio.org/electron/windows/RStudio-2025.09.2-418.exe)
+
+### For macOS users
+
+[Download R for macOS 11 and higher](https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.5.2-arm64.pkg)
+
+[Download RStudio for macOS](https://download1.rstudio.org/electron/macos/RStudio-2025.09.2-418.dmg)
+
+## Invite AI to the table
+
+<https://umgpt.umich.edu/>
+
+```{r}
+str(covid_total)
+```
+
+Questions to UMGPT:
+
+**Q1:** **I am working on a new dataset in R. I have an R object with the following data structure:**
+
+```         
+> str(covid_total) 
+tibble [1,904 × 6] (S3: tbl_df/tbl/data.frame)  
+$ mrn        : num [1:1904] 5e+06 5e+06 5e+06 5e+06 5e+06 ...  
+$ gender     : chr [1:1904] "female" "female" "female" "male" ...  
+$ pan_day    : num [1:1904] 32 29 29 25 21 27 34 32 31 32 ...  
+$ clinic_name: chr [1:1904] "emergency dept" "clinical lab" "clinical lab" "clinical lab" ...  
+$ age        : num [1:1904] 18 60 4 26 25 26 29 2 28 2 ...  
+$ result     : chr [1:1904] "negative" "negative" "invalid" "negative" ...
+```
+
+**Can you tell me about it? Only summarize the data structure.**
+
+**Q2:** **Help me write a R function that will check a data frame for NA values (missing data).**
+
+**Q3: I want to know what the relationship between gender and covid testing results looks like. Can you help write R codes to visualize the relationship?**
+
+**Q4: I** **would like to know if these relationships are statistically different, can you help me write R codes?**
+
+**Q5:** **Help me interpret the output:**
+
+**Q6: I got an error message:....... Here is my R codes:............Can you help explain and fix my R codes?**
+
+**Q7:** **Can you exclude those that test is invalid, and then create a new variable that is 1 when result is "positive", but 0 otherwise?**
+
+**Q8: I want to know......, then I want to know......, then I want to know......** **Ensure you understand the task. Explain it back to me before proceeding and I will check your logic.**
+
+Other common questions:
+
+Q1: How do I tell RStudio where it can find my files?
+
+Q2: How do I load an Excel file into RStudio?
+
+Q3: How do I save my data in R's native format?
+
+Q4: How do I export my data?
+
+## Additional codes: data management
+
+```{r}
+#rename variables: "new name" = "old name" 
+covid_total <-
+  covid_total |>
+  rename("clinic" = "clinic_name") |>
+  print(n=5)
+```
+
+```{r}
+#reorder variables
+covid_total |>
+  select(mrn, age, gender, clinic, pan_day, result)
+```
+
+```{r}
+#sort data
+covid_total |>
+  arrange(clinic, pan_day, result) |>
+  print()
+```
+
+```{r}
+#check data: what clinics included in this dataset
+covid_total |>
+  select(clinic) |>
+  unique() |>
+  print()
+```
+
+```{r}
+#check in the first 30 days of pandemic, # of positive covid cases in each clinic
+covid_total |>
+  select(clinic, pan_day, result) |>
+  filter(result != "invalid", pan_day <= 30) |>
+  tbl_summary(
+    by = result)
+```
+
+```{r}
+#convert continuous variable "age" to categorical variable "age_group"
+covid_total |>
+  select(var=-mrn, -clinic) |>
+  mutate(age_group = ifelse(age <= 18, "Youth", "Adult"),
+      age_group = factor(age_group))|>
+  tbl_summary(
+    by=age_group
+  )
+```
+
+```{r}
+#convert character to numeric
+#just showing the codes (pan_day was numeric)
+covid_total |>
+  mutate_at("pan_day", as.numeric)
+```
+
+```{r}
+#create a publication-ready table
+#change values: f,m to Female, Male
+employee |>
+  select(-id)|>
+  mutate(gender = factor(gender,labels=             c("Female", "Male")))|>
+  mutate_at("jobcat", as_factor) |>
+  tbl_summary(
+    label= list(gender ~ "Gender", 
+           salbegin ~ "Beginning Salary (dollar)", salary ~ "Current Salary (dollar)", prevexp ~ "Previous Experience (months)"))
+```
