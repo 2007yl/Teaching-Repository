@@ -1,0 +1,505 @@
+## Thromboembolism {#slide-1}
+
+PE
+
+DVT
+
+## Pregnancy is a risk factor for thromboembolism {#slide-2}
+
+Accounting for 9.3% of maternal deaths in US
+
+Physiological changes
+
+Mechanical obstruction by the gravid uterus
+
+Decreased mobility
+
+Vascular injury
+
+## Other risk factors related to pregnancy {#slide-3}
+
+Advanced maternal age
+
+Obesity
+
+Cesarean delivery
+
+## preeclampsia {#slide-4}
+
+Hypertension arising after 20 weeks of gestation with new onset or worsening proteinuria or end-organ disease
+
+## Pathophysiologic association {#slide-5}
+
+Preeclampsia 
+
+Thromboembolism
+
+Elevated risk for VTE in pregnancy and postpartum among those with preeclampsia.
+
+## Retrospective cohort study {#slide-6}
+
+The relationship between preterm preeclampsia and thromboembolic risk
+
+## Cohorts {#slide-7}
+
+No history of preeclampsia 
+
+preterm preeclampsia 
+
+Delivery at \<= 36 weeks
+
+term preeclampsia
+
+Delivery at \>= 37 weeks
+
+## outcome {#slide-8}
+
+Any thromboembolic event
+
+Each type of thromboembolic event
+
+## National Inpatient Sample database {#slide-9}
+
+the largest publicly available all-payer inpatient healthcare database 
+
+contains data from around 7 million hospital stays each year
+
+2017-2019
+
+2.2 million
+
+56,446 preterm preeclampsia
+
+86,152 term preeclampsia
+
+## Variables of interest {#slide-10}
+
+Demographics
+
+Age, race, BMI, tobacco use, insurance, income, hospital bed size, hospital teaching status, length of stay, cesarean delivery
+
+Comorbidities: grand multiparity, diabetes mellitus, chronic hypertension, asthma, anemia, history of cesarean
+
+Outcome
+
+PE, DVT, cerebral thrombosis or TIA, other thrombosis
+
+## Univariate analysis {#slide-11}
+
+Categorical variable
+
+Continuous variable (numeric, metric)
+
+## Slide 12
+
+![](ppt/media/image1.png "Picture 3")
+
+## Slide 13
+
+![](ppt/media/image2.png "Picture 3")
+
+## Slide 14
+
+![](ppt/media/image3.png "Picture 3")
+
+## Demographics {#slide-15}
+
+Categorical 
+
+race, income, hospital bed size, hospital teaching status
+
+Private insurance, tobacco use, grand multiparity, diabetes mellitus, chronic hypertension, asthma, anemia, history of cesarean, cesarean delivery
+
+Continuous 
+
+Age, BMI, length of stay
+
+## Slide 16
+
+  Variables               Preterm preeclampsia n=56,446
+  ----------------------- -------------------------------
+  Tobacco use             3459 (6.1%)
+  Chronic hypertension    8426 (14.9%)
+  History of cesarean     11,434 (20.3%)
+
+## Slide 17
+
+  Variable                    Preterm preeclampsia n=56,446
+  --------------------------- -------------------------------
+  Race                        
+    Non-Hispanic White        25,213 (46.2%)
+    Non-Hispanic Black        13,627 (25.0%)
+    Hispanic                  10,587 (19.4%)
+    Asian or Pacific Island   2310 (4.2%)
+    American Indian           580 (1.0%)
+    Other                     2301 (4.2%)
+
+## Video {#slide-18}
+
+https://www.youtube.com/watch?v=K9teElePNkk
+
+Descriptive statistics: 4:19-10:21
+
+## Mean vs median {#slide-19}
+
+Both measure central tendency
+
+Median: reduce noise
+
+## Slide 20
+
+## Slide 21
+
+  Variables   Preterm preeclampsia n=56,446
+  ----------- -------------------------------
+  Age         30.2 (23.8, 34.6)
+
+## Normality test {#slide-22}
+
+Shapiro Wilk test
+
+swilk  age
+
+P\<0.05
+
+Normal distribution is not assumed
+
+Median(IQR)
+
+P≥0.05
+
+Normal distribution is assumed
+
+Mean(SD)
+
+## Slide 23
+
+![](ppt/media/image5.png "Picture 3")
+
+## Slide 24
+
+![A graph with numbers and a bar
+
+Description automatically generated](ppt/media/image6.png "Content Placeholder 3")
+
+## Slide 25
+
+![A graph with numbers and a bar
+
+Description automatically generated](ppt/media/image7.png "Content Placeholder 3")
+
+## Slide 26
+
+  Variables        Normal distribution   
+  ---------------- --------------------- ------------
+  Age              Yes                   Mean( sd )
+  BMI              Yes                   Mean( sd )
+  Length of stay   Yes                   Mean( sd )
+
+## Slide 27
+
+  Variables        Normal distribution   
+  ---------------- --------------------- -------------
+  Age              Yes                   Mean( sd )
+  BMI              Yes                   Mean( sd )
+  Length of stay   No                    Median(IQR)
+
+## Slide 28
+
+  Variables        Normal distribution   
+  ---------------- --------------------- -------------
+  Age              Yes                   Median(IQR)
+  BMI              Yes                   Median(IQR)
+  Length of stay   No                    Median(IQR)
+
+## Slide 29
+
+  Variables   Preterm preeclampsia n=56,446
+  ----------- -------------------------------
+  BMI         32.2 (23.8, 38.6)
+
+## Slide 30
+
+  Variables           Preterm preeclampsia n=56,446
+  ------------------- -------------------------------
+  BMI                 
+     Under weight     923 (1.6%)
+     Normal           33,158 (58.7%)
+     Obesity          14,923 (26.4%)
+     Morbid obesity   7442 (13.2%)
+
+## Slide 31
+
+  Variables           Preterm preeclampsia n=56,446
+  ------------------- -------------------------------
+     Obesity          14,923 (26.4%)
+     Morbid obesity   7442 (13.2%)
+
+## Slide 32
+
+  Variables           No preeclampsia n=2,093,579   Preterm preeclampsia n=56,446
+  ------------------- ----------------------------- -------------------------------
+  BMI                                               
+     Under weight     25,123 (1.2%)                 923 (1.6%)
+     Normal           1,760,101 (84.1%)             33,158 (58.7%)
+     Obesity          222,153 (10.6%)               14,923 (26.4%)
+     Morbid obesity   86,202 (4.1%)                 7442 (13.2%)
+
+## Chi-square test {#slide-33}
+
+P\<0.05
+
+Those with no history of preeclampsia were more likely to have normal weight.
+
+Those with preterm preeclampsia were more likely to have obesity or morbid obesity.
+
+## Chi-square test {#slide-34}
+
+What if sample size is small
+
+N=125
+
+## Slide 35
+
+  Variables           No preeclampsia n=79   Preterm preeclampsia n=46
+  ------------------- ---------------------- ---------------------------
+  BMI                                        
+     Under weight     2 (2.5%)               1 (2.2%)
+     Normal           66 (83.5%)             27 (58.7%)
+     Obesity          8 (10.1%)              12 (26.1%)
+     Morbid obesity   3 (3.8%)               6 (13.0%)
+
+37.5% cells have a count less than 5
+
+## Chi-square test VS Fisher's exact test {#slide-36}
+
+\<20% 
+
+Chi-square test or Fisher's exact test
+
+\>= 20% and \<= 50%
+
+Fisher's exact test
+
+\>50%
+
+Neither
+
+## Slide 37
+
+  Variables           No preeclampsia n=79   Preterm preeclampsia n=46
+  ------------------- ---------------------- ---------------------------
+  BMI                                        
+     Under weight     2 (2.5%)               1 (2.2%)
+     Normal           66 (83.5%)             27 (58.7%)
+     Obesity          8 (10.1%)              12 (26.1%)
+     Morbid obesity   3 (3.8%)               6 (13.0%)
+
+37.5% cells have a count less than 5
+
+Fisher's exact test
+
+## Slide 38
+
+  Observed                    No preeclampsia n=79   Preterm preeclampsia n=46
+  --------------------------- ---------------------- ---------------------------
+  BMI                                                
+     Normal (\<30)            68 (86.1%)             28 (60.9%)
+     Obesity (\>=30, \<40)    8 (10.1%)              12 (26.1%)
+     Morbid obesity (\>=40)   3 (3.8%)               6 (13.0%)
+
+16.7% cells have a count less than 5
+
+## Slide 39
+
+  Observed                    No preeclampsia   Preterm preeclampsia   
+  --------------------------- ----------------- ---------------------- -------
+  BMI                                                                  total
+     Normal (\<30)            68 (86.1%)        28 (60.9%)             96
+     Obesity (\>=30, \<40)    8 (10.1%)         12 (26.1%)             20
+     Morbid obesity (\>=40)   3 (3.8%)          6 (13.0%)              9
+  total                       79                46                     
+
+## Slide 40
+
+Expected Frequency=(Row Total/Grand Total)×(Column Total/Grand Total)×Grand Total=(Row  Total×Column  Total)/Grand Total
+
+## Slide 41
+
+  Expected                    No preeclampsia   Preterm preeclampsia   
+  --------------------------- ----------------- ---------------------- -------
+  BMI                                                                  total
+     Normal (\<30)            60.672 (76.8%)    35.328 (76.8%)         96
+     Obesity (\>=30, \<40)    12.64 (16.0%)     7.36 (16.0%)           20
+     Morbid obesity (\>=40)   5.688 (7.2%)      3.312 (7.2%)           9
+  total                       79                46                     
+
+## Slide 42
+
+  Observed             No preeclampsia   Preterm preeclampsia
+  -------------------- ----------------- ----------------------
+  BMI                                    
+     Normal            68 (86.1%)        28 (60.9%)
+     Obesity           8 (10.1%)         12 (26.1%)
+     Morbid obesity    3 (3.8%)          6 (13.0%)
+
+  Expected             No preeclampsia   Preterm preeclampsia
+  -------------------- ----------------- ----------------------
+  BMI                                    
+     Normal            61 (76.8%)        36 (76.8%)
+     Obesity           13 (16.0%)        7 (16.0%)
+     Morbid obesity    6 (7.2%)          3 (7.2%)
+
+If BMI and Preeclampsia are independent:
+
+## Slide 43
+
+  Variables                              No preeclampsia n=79   Preterm preeclampsia n=46
+  -------------------------------------- ---------------------- ---------------------------
+  BMI                                                           
+     Normal (\<30)                       68 (86.1%)             28 (60.9%)
+     Obesity or morbid obesity (\>=30)   11 (13.9%)             18 (39.1%)
+
+## Slide 44
+
+![A screenshot of a computer screen
+
+Description automatically generated](ppt/media/image8.png "Content Placeholder 4")
+
+![A screenshot of a computer screen
+
+Description automatically generated](ppt/media/image8.png "Content Placeholder 4")
+
+## Slide 45
+
+![A screenshot of a computer screen
+
+Description automatically generated](ppt/media/image9.png "Content Placeholder 4")
+
+![A screenshot of a computer screen](ppt/media/image9.png "Content Placeholder 4")
+
+Controlled for age, race, obesity, tobacco use, chronic hypertension, asthma, anemia, chronic kidney disease, history of cesarean, multiple gestations, patient location, income, insurance, hospital location, hospital type and ownership, hospital size, length of stay, and mode of delivery
+
+## Oral contraceptive and thromboembolism {#slide-46}
+
+Case: with thromboembolism
+
+Control: without thromboembolism
+
+Exposure: oral contraceptive
+
+## Scenario 1 {#slide-47}
+
+Case: n=200, 15% use oral contraceptive
+
+Control: n=200, 10% use oral contraceptive
+
+Significance level =0.05
+
+Power calculation
+
+## Slide 48
+
+![A screenshot of a computer
+
+Description automatically generated](ppt/media/image10.png "Content Placeholder 4")
+
+## Scenario 2 {#slide-49}
+
+Case: 15% use oral contraceptive
+
+Control: 10% use oral contraceptive
+
+Significance level =0.05
+
+80% Power 
+
+Sample size
+
+## Slide 50
+
+![A screenshot of a computer
+
+Description automatically generated](ppt/media/image11.png "Content Placeholder 4")
+
+## Postpartum depression and future pregnancy {#slide-51}
+
+Cohort 1: postpartum depression
+
+Cohort 2: no postpartum depression
+
+## Scenario  {#slide-52}
+
+PPD Cohort : 40%
+
+Non-PPD Cohort: 60%
+
+Significance level =0.05
+
+80% Power 
+
+## Slide 53
+
+![A screenshot of a computer
+
+Description automatically generated](ppt/media/image12.png "Content Placeholder 4")
+
+## Ask UM-GPT {#slide-54}
+
+I want to do a power/sample size calculation in Stata (R):
+
+......
+
+......
+
+Can you show me how to do it step by step?
+
+## Sampling  and weighting {#slide-55}
+
+https://www.youtube.com/watch?v=DD5npelwh80
+
+https://www.youtube.com/watch?v=dt0fQDabb4Y
+
+## Hypothetical Nationwide Cesarean Rate Survey - U.S. 2024 {#slide-56}
+
+## Hypothetical  {#slide-57}
+
+Sample size: 4000 deliveries
+
+35-40 hospitals or birth centers
+
+March 1-10, 2024
+
+## Stratified multistage cluster sampling {#slide-58}
+
+Strata: Geographic regions, urban vs. rural areas, facility types. Clusters: Hospitals and birthing centers. 
+
+Stage 1: Selection of Primary Sampling Units (PSUs) Stratify by geographic regions. Select PSUs using probability proportional to size (PPS) sampling based on the number of births. 
+
+Stage 2: Within PSU Facilities Randomly select hospitals/birthing centers within each PSU. 
+
+Stage 3: Individual Births Random sample of births from selected facilities.
+
+## Stratified Multistage Cluster Sampling {#slide-59}
+
+Stratified Sampling:  geographic regions, urban versus rural areas, and facility types
+
+Cluster Sampling:
+
+## Slide 60
+
+![](ppt/media/image13.png "Picture 3")
+
+## Slide 61
+
+![](ppt/media/image13.png "Picture 3")
+
+## weighting {#slide-62}
+
+https://www.youtube.com/watch?v=SJRVxvdIc8s&t=613s
+
+## Slide 63
+
+![A diagram of a group of people
+
+Description automatically generated](ppt/media/image14.png "Content Placeholder 3")
