@@ -1,0 +1,960 @@
+## Introduction to Stata {#slide-1}
+
+![Pink flowers and leaves on white background](ppt/media/image7.jpeg "Picture 3")
+
+2025-2026
+
+## Environment {#slide-2}
+
+![A blue background with white squares
+
+Description automatically generated](ppt/media/image8.png "Picture 5")
+
+![A logo with a letter p
+
+Description automatically generated](ppt/media/image9.png "Picture 7")
+
+![A group of blue circles
+
+Description automatically generated](ppt/media/image10.png "Picture 4")
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 8")
+
+## Objective {#slide-3}
+
+Understand Stata codes
+
+Ask AI to write Stata codes
+
+## Virtual Sites {#slide-4}
+
+Virtual Sites does not save files automatically. 
+
+Virtual Sites sessions will time out after 15 minutes of inactivity.
+
+After a Virtual Sites session is terminated, session data is deleted within 15 minutes.
+
+Getting Started with Virtual Sites / U-M Information and Technology Services (umich.edu)
+
+## Overview {#slide-5}
+
+SPSS
+
+Excel
+
+Stata
+
+SAS
+
+R
+
+Point and click
+
+code
+
+Point and click
+
+Point and click
+
+code
+
+code
+
+Easy
+
+Difficult
+
+Learning
+
+Reproducible
+
+Poor
+
+Great
+
+## Overview {#slide-6}
+
+Input:  RedCap , Qualtrics, Excel
+
+Stata
+
+R
+
+Point and click
+
+code
+
+Point and click
+
+code
+
+Easy
+
+Difficult but easy with AI
+
+Learning
+
+Reproducible
+
+Poor
+
+Great
+
+Output 
+
+## Contents  {#slide-7}
+
+I Stata Basics (15 min)
+
+- 
+
+II Data management (15 min)
+
+- 
+
+III Statistical analysis (15 min)
+
+Course datasets:
+
+employee_0.xls
+
+employee_1.xls
+
+## Slide 8
+
+![](ppt/media/image12.png "Picture 1")
+
+upload datasets
+
+## Slide 9
+
+![](ppt/media/image13.png "Picture 8")
+
+ datasets are uploaded to the folder: Remote Desktop Virtual Drive on  RDWebClient /Uploads
+
+Check if uploading is completed successfully: Stata/SE 18.0 click "File", click "Open..." 
+
+Change  to All Files
+
+## Slide 10
+
+![](ppt/media/image14.png "Picture 2")
+
+## Slide 11
+
+![A screenshot of a computer
+
+AI-generated content may be incorrect.](ppt/media/image15.png "Content Placeholder 4")
+
+## I Stata Basics-Window {#slide-12}
+
+Command
+
+Results
+
+History
+
+Variables
+
+Properties
+
+![](ppt/media/image16.png "Picture 4")
+
+## Basics -- get ready  {#slide-13}
+
+Set working directory (click)
+
+File → change working directory : 
+
+cd \"C:\\Users\\youruniquename\\Documents\"
+
+Create Log file:  stata  (click)
+
+Documentation 
+
+![](ppt/media/image17.png "Picture 4")
+
+![](ppt/media/image18.png "Picture 5")
+
+## Basics - Open data {#slide-14}
+
+Import data (click)
+
+File → import → Excel spreadsheet
+
+employee_0.xls
+
+Check "import first row as variable names"
+
+File → save
+
+If use virtual site, type  save employee_0
+
+![](ppt/media/image19.png "Picture 4")
+
+![](ppt/media/image20.png "Picture 3")
+
+Open existing data in working directory(command)
+
+Type  use employee_0
+
+## Stata Command {#slide-15}
+
+. import excel \"\\\\tsclient\\Remote Desktop Virtual Drive\\Uploads\\employee_0.xls\", sheet(\"Sheet1\")  firstrow
+
+## Ask AI to help {#slide-16}
+
+Q: Hi! how can  i  import excel data into Stata?
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Basics - inspect data {#slide-17}
+
+View data (click)
+
+Data → Data Editor → Data Editor (Browse)
+
+Browse data table, variables
+
+![](ppt/media/image17.png "Picture 3")
+
+## Basics - Describe variables {#slide-18}
+
+Command:  describe
+
+#observations
+
+#variables
+
+Variable name
+
+Variable label
+
+Output: 
+
+![](ppt/media/image21.png "Picture 6")
+
+![](ppt/media/image20.png "Picture 3")
+
+## Invite AI to the table {#slide-19}
+
+Q: Hi! I'm working on a dataset " employee_o " using Stata: 
+
+Can you summarize my data?
+
+![](ppt/media/image21.png "Picture 3")
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Summary Remarks {#slide-20}
+
+UM-GPT: The dataset captures demographic information (gender,  bdate , minority), employment-related data ( jobcat ,  jobtime ), and financial information (salary,  salbegin ).
+
+......
+
+......
+
+UM-GPT: Would you like any specific analysis or further details on any of these variables?
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Basics - Describe data contents {#slide-21}
+
+Command:  codebook
+
+Categorical 
+
+value
+
+Missing data
+
+Frequency
+
+Output: 
+
+![](ppt/media/image22.png "Picture 4")
+
+## Basics - Describe data contents {#slide-22}
+
+Command:  codebook
+
+continuous
+
+value
+
+range
+
+Missing data
+
+Mean,  sd , percentile
+
+Output: 
+
+![](ppt/media/image23.png "Picture 5")
+
+## Exercise 5 min {#slide-23}
+
+Type answers in chat:
+
+\# of variables  
+
+\# of observations 
+
+Mean salary
+
+How many are minority
+
+Hint:  describe    codebook   
+
+![Hourglass on white background](ppt/media/image24.jpeg "Picture 4")
+
+## I Recap {#slide-24}
+
+Set working directory (click)
+
+Create log (click)
+
+Import . xls  .csv .txt data (click)  or open . dta  data (click)
+
+View data (click)
+
+Describe data (command)
+
+describe
+
+codebook
+
+## II Data management {#slide-25}
+
+Merge two datasets  
+
+Edit variables
+
+Subset data
+
+## Slide 26
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+Variable  name                
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+id                                      
+
+gender                              
+
+bdate                                  
+
+educ                                  
+
+jobcat                                
+
+salary                               
+
+salbegin                            
+
+jobtime                             
+
+minority                           
+
+Contains data from employee_0.dta
+
+Contains data from employee_1.dta
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+Variable  name                
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+id 
+
+prevexp
+
+                                     
+
+## Merge {#slide-27}
+
+Import employee_1.xls (click) check "import first row as variable names"
+
+save employee_1
+
+use employee_0
+
+merge 1:1 id using employee_1
+
+describe
+
+save employee
+
+## Slide 28
+
+![](ppt/media/image25.png "Picture 4")
+
+## Label variables {#slide-29}
+
+Variable name         Variable label
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+id                              Employment Code
+
+gender                      Gender
+
+bdate                        Date of Birth
+
+educ                        Educational Level (years)
+
+jobcat                        Employment Category
+
+salary                      Current Salary
+
+salbegin                   Beginning Salary
+
+jobtime                    Months since Hire
+
+prevexp                    Previous Experience (months)
+
+minority                    Minority  Classification
+
+## Label variables {#slide-30}
+
+Select variable (click)
+
+unlock property (click)
+
+Label variables (click)
+
+Lock property (click)
+
+Command:
+
+label var  name  " label "
+
+Example:
+
+label var  id  " Employment Code "
+
+![](ppt/media/image26.png "Picture 9")
+
+## Label values {#slide-31}
+
+![](ppt/media/image27.png "Picture 4")
+
+codebook  jobcat
+
+## Label values {#slide-32}
+
+Select variable (click)
+
+unlock property (click)
+
+Value label (click ... )
+
+Create label and choose 
+
+Lock property (click)
+
+Command:
+
+Example:
+
+label define  cat  1 \"clerical\" 2 \"custodial\" 3 \"manager"
+
+label values  jobcat   cat
+
+![](ppt/media/image28.png "Picture 4")
+
+## Label values {#slide-33}
+
+![](ppt/media/image29.png "Picture 4")
+
+Command:  codebook  jobcat
+
+Output: 
+
+## Add variables {#slide-34}
+
+Edit data (click)
+
+Data → Create or change data→ create new variable
+
+Variable type: int
+
+Variable name : age
+
+Specify a value or an expression:
+
+ ( mdy (10,22,1995) -  bdate )/365.25
+
+save
+
+Command:
+
+  gen int  age  = ( mdy (10,22,1995) -  bdate )/365.25
+
+save employee, replace
+
+![](ppt/media/image30.png "Picture 7")
+
+## Ask AI to write codes {#slide-35}
+
+Q: Hi! The variable " bdate " is date of birth, my data was collected on 10-22-1995, can you create a new variable "age"? Please write Stata codes. 
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Ask AI to troubleshoot {#slide-36}
+
+Q: Hi! I got this error message in Stata:
+
+...
+
+...
+
+Can you fix it? 
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Keep or drop variables {#slide-37}
+
+Window-variables → select variable → right click → keep or drop
+
+Command:
+
+keep 
+
+Drop
+
+Example:  drop  bdate
+
+Example:   keep  id age salary  jobcat   prevexp
+
+Be careful 
+
+clear  (tell Stata to clear memory and not to save changes)
+
+save employee, replace  ( tell Stata to save changes and overwrite employee)
+
+save  employee_new   ( tell Stata to save as a new file)
+
+## Keep or drop observations {#slide-38}
+
+Data → create or change data → add or insert observations (click)
+
+Data → create or change data → drop or keep observations (click)
+
+Command:
+
+keep drop
+
+Example:   keep if  gender  == "f"
+
+Example:   keep if  salary  \> 50000
+
+Be careful 
+
+clear  (tell Stata to clear memory and not to save changes)
+
+save employee, replace  ( tell Stata to save changes and overwrite employee)
+
+save  employee_new   ( tell Stata to save as a new file)
+
+## Exercise 5 min {#slide-39}
+
+1. Label variable educ:  Education level (years)
+
+2. Type answers in chat:  mean age of female employee
+
+3. Type answers in chat: median salary of female employee
+
+![Hourglass on white background](ppt/media/image24.jpeg "Picture 4")
+
+## II Recap {#slide-40}
+
+Manage data:  merge ,  keep ,  drop
+
+Manage variables:  label , generate ( gen ), convert 
+
+Why are we doing this?
+
+## III Statistical analysis {#slide-41}
+
+Univariate (summary statistics) -- single variable
+
+Continuous-  sum
+
+Visualize -  hist
+
+Categorical-  tab
+
+Visualize-   bar graph
+
+Bivariate -- two variables
+
+Chi-Square test
+
+Wilcoxon rank sum test
+
+## Slide 42
+
+![](ppt/media/image31.png "Picture 3")
+
+Data type
+
+age
+
+educ 
+
+Jobtime
+
+Prevexp
+
+salary
+
+salbegin
+
+gender
+
+jobcat
+
+minority
+
+Continuous
+
+Categorical
+
+## Continuous - Summarize  {#slide-43}
+
+Command:  summarize  or  sum
+
+Numeric 
+
+Mean,  sd , min, max
+
+![](ppt/media/image32.png "Picture 6")
+
+Example 2 :  sum  salary , detail 
+
+![](ppt/media/image33.png "Picture 4")
+
+Example 1 :  sum  salary  
+
+Median(IQR): 50%(25%, 75%)
+
+extra : table of summary statistics
+
+tabstat   salary , s(median, p25, p75)
+
+tabstat   salary  salbegin , s(median, p25, p75) 
+
+## Visualize continuous data {#slide-44}
+
+Histogram 
+
+Distribution of data
+
+Command:  hist
+
+Example:  hist  salary
+
+![](ppt/media/image34.emf "Picture 4")
+
+Output: 
+
+## Categorical-tab {#slide-45}
+
+![](ppt/media/image35.png "Picture 5")
+
+Command:  tab
+
+categorical
+
+frequency
+
+percentage
+
+Output: 
+
+Example :  tab  jobcat
+
+Extra:
+
+Cross tabulation :  tab  jobcat  gender
+
+                       tab   jobcat  gender, column row
+
+Tabulate 2 or more variables:  tab1   jobcat  gender
+
+## Visualize categorical data {#slide-46}
+
+Bar graph 
+
+Command:  graph bar
+
+Example:  graph bar, over( jobcat )
+
+Output: 
+
+![](ppt/media/image36.emf "Picture 8")
+
+## Slide 47
+
+Example of basic summary statistics: 
+
+##  Chi-Square test {#slide-48}
+
+Bivariate analysis
+
+Categorical
+
+Association between two  categorical  variables
+
+Example: Run a crosstab between gender and  jobcat
+
+Command:  tab  gender  jobcat
+
+Do a chi-square test to examine whether job status is different between males and females.
+
+Command:  tab  gender  jobcat , row chi
+
+ tab  gender  jobcat ,  chi2
+
+![](ppt/media/image40.png "Picture 6")
+
+Output: 
+
+## Ask AI to write codes {#slide-49}
+
+Q: I want to run  a chi-square test to examine whether job status is different between males and females. Can you write Stata codes? 
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Ask AI to interpret results {#slide-50}
+
+Q: This is the chi-square test output:
+
+...
+
+...
+
+      Can you interpret it? 
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 4")
+
+## Interpretation {#slide-51}
+
+UM-GPT
+
+The distribution of job categories is different between genders. For example, there are relatively more males in job category 3 compared to females, and no females are in job category 2 while some males are.
+
+The Pearson chi-square statistic is 79.2771, which is a measure of how much the observed counts deviate from the expected counts if gender and job category were independent.
+
+The p-value is less than 0.001 (commonly denoted as 0.000 in outputs), which is well below any typical significance level (e.g., 0.05)
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 3")
+
+## Conclusion {#slide-52}
+
+UM-GPT:
+
+Statistical Significance: With a p-value \< 0.05, we reject the null hypothesis that job category and gender are independent. This result suggests that there is a statistically significant association between gender and job category. Specifically, the distribution of job categories is different for males and females in your sample.
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 3")
+
+## Continue the conversation {#slide-53}
+
+Q: Thanks! one of the cell count is less than 5 (number of female in category 2). do you think Fisher\'s exact test is more appropriate than chi-square test in this case?
+
+![A blue text on a black background
+
+Description automatically generated](ppt/media/image11.png "Picture 3")
+
+## Wilcoxon rank sum test {#slide-54}
+
+Bivariate analysis
+
+One continuous variable and one Categorical variable
+
+Non-parametric test
+
+Compare distribution of a continuous variable between two population
+
+Example: distribution of salary for the two categories defined by gender
+
+Command:  ranksum   salary , by( gender )
+
+![](ppt/media/image41.png "Picture 4")
+
+Output: 
+
+## Slide 55
+
+![](ppt/media/image42.png "Picture 4")
+
+Example of bivariate analysis: 
+
+## Exercise 5 min {#slide-56}
+
+1 . Obtain mean,  sd , min, max, median, p25, p75 of salary. 
+
+2. Obtain frequency and percent of gender. Type n(%) of female in chat.
+
+3. Run a crosstab between  jobcat  and minority. Do a chi-square test to examine whether job status is different between minority employees and other. 
+
+4. Keep observations that salary is greater than \$30000. Run a Wilcoxon rank sum test to examine whether the distribution of age is different between female and male. 
+
+![Hourglass on white background](ppt/media/image24.jpeg "Picture 4")
+
+## III Recap {#slide-57}
+
+Univariate analysis
+
+Continuous  sum
+
+Categorical  tab
+
+Bivariate analysis
+
+2 categorical variables - Chi-Square test
+
+1 categorical and 1 continuous variable - Wilcoxon rank sum test
+
+## Recap {#slide-58}
+
+- Stata Basics 
+
+<!-- -->
+
+- Import, open, inspect data
+
+<!-- -->
+
+-  Data management 
+
+<!-- -->
+
+- Merge datasets, tidy data
+
+<!-- -->
+
+-  Statistical analysis 
+
+<!-- -->
+
+- Univariate: describe and visualize
+- Bivariate: Chi-square test, Wilcoxon test
+
+<!-- -->
+
+- 
+
+## Syntax {#slide-59}
+
+describe   describe  variables
+
+codebook    describe data contents
+
+tab    frequency table -categorical variable
+
+sum    summary statistics -continuous variable
+
+## Do file {#slide-60}
+
+![](ppt/media/image43.png "Picture 4")
+
+![](ppt/media/image43.png "Picture 6")
+
+## Resources {#slide-61}
+
+Google
+
+https://www.princeton.edu/\~otorres/StataTutorial.pdf
+
+https://stats.oarc.ucla.edu/stata/modules/
+
+https://www.youtube.com/user/statacorp
+
+https://blog.uvm.edu/tbplante/2019/07/11/make-a-table-1-in-stata-in-no-time-with-table1_mc/
+
+https://www.linkedin.com/learning/introduction-to-stata-15/why-you-should-use-stata?u=42573940
+
+Dropbox: OBGYN-Stats
+
+https://www.dropbox.com/sh/ddoeg3oxmoekjas/AACT7yA5vuRhezvHJndIQSHqa?dl=0
+
+Order Stata at UM:
+
+https://software.its.umich.edu/Portal/Item/View/2499
+
+AI User Guide:
+
+https://midas.umich.edu/research/research-resources/generative-ai-hub/users-guide/
+
+## Stata Support {#slide-62}
+
+Email:  ylyl@med.umich.edu  
+
+## Continuous variable {#slide-63}
+
+Check normality
+
+swilk  var1 var2 var3 
+
+Data:  swilk  p\<0.05, non-normal distribution, Median(IQR)
+
+tabstat  var1 var2 var3, s(median, p25, p75)
+
+Data:  swilk  \>=0.05, normal distribution, Mean,  sd
+
+tabstat  var1 var2 var3, s(mean,  sd )
+
+By group
+
+tabstat  var1 var2 var3, s(median, p25, p75) by(arm)
+
+tabstat  var1 var2 var3, s(mean,  sd ) by(arm)
+
+## Categorical variable {#slide-64}
+
+Stata codes
+
+tab var
+
+tab1 var1 var2
+
+tab var1 var2, column row
+
+tab var1 var2, sum(var3)
+
+  
+
+## Table {#slide-65}
+
+Stata codes
+
+ssc  install table1_mc
+
+table1_mc, vars( age   contn  %4.0f \\  sex0m1f  bin %4.0f \\  race0w1b  bin %4.0f \\  region123  cate %4.0f \\  educ1234  cat %4.0f \\  income1234  cat %4.0f \\  sbp   conts  %4.0f \\   dbp   conts  %4.0f )   onecol  missing total(before) saving(\"table 1.xlsx\", replace)
+
+table1_mc, by( mygroup ) vars( age   contn  %4.0f \\  sex0m1f  bin %4.0f \\  race0w1b  bin %4.0f \\  region123  cate %4.0f \\  educ1234  cat %4.0f \\  income1234  cat %4.0f \\  sbp   conts  %4.0f \\   dbp   conts  %4.0f )   onecol  missing total(before) saving(\"table 2.xlsx\", replace)
