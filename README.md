@@ -6,12 +6,14 @@ Archived code and slides for teaching Statistics and data analysis
 - One way ANOVA
 - Paired t-test
 - McNemar's test
+- weblink: https://umich.instructure.com/courses/330263/modules
 
 ## Project-2 Sample Stata code for Statistical course
 - Independent t-test
 - One way ANOVA
 - Paired t-test
 - McNemar's test
+- weblink: https://umich.instructure.com/courses/330263/modules
 
 ## Project-3
 R codebook 
