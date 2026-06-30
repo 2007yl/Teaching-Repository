@@ -1,0 +1,137 @@
+* Basics (Intro workshop)
+	• use covid_testing
+	• merge 1:1 mrn using covid_result
+	• save, replace
+	• describe
+	• label var pan_day "The time test sample was taken to start of pandemic (days)"
+	• codebook result
+	• keep if result == "positive" & pan_day <=30
+	• describe
+	• clear
+	• use covid_testing
+	• sum pan_day, detail
+	• tab gender
+	• tab1 gender result
+	• tab result gender, row chi
+	• drop if result =="invalid"
+	• ranksum age, by(result)
+
+* Dataset summary
+	• describe
+	
+* Browse data
+	• browse
+	• Browse var1 var2
+	
+* Check variable
+	• codebook
+	• codebook var
+	
+* Check missing values
+	• misstable sum
+	
+* Continuous variable
+	• Inspect var 
+	• sum var
+	• sum var, detail
+		○ Skewness: 0: symmetric; + skew to the right, - skew to the left
+		○ Kurtosis: normal 3, >3 means distribution(peakness) is not normal
+	• tabstat var1 var2 var3, s(mean sd) by(var4)
+	• tabstat var1 var2 var3, s(median, p25, p75) by(var4)
+
+* Categorical variable
+• tab var
+• tab var, miss
+• tab1 var1 var2 var3
+• tab var1 var2
+
+* Check data
+	• count
+	• list
+	• display
+
+* Choose variable or observations
+	• Keep
+	• drop
+
+* Recode value
+•    recode var old_value=new_value     
+
+* Dates
+	• gen year= year(var)
+	• gen var1=date(var, "MDY")
+	• gen var1=date(var, "MD20Y")
+	• gen age=(var2-var1)/365.25
+	• format var %td
+	• display td(01jan2022)
+
+* Category
+	• gen var=0
+	• replace var=1 if  var1=="something"
+	• gen var3=cond((var1==0& var2==0),0,1)
+	• egen var_any=anymatch (var1 var2 var3), values (1)
+	
+* Normality
+	• swilk var1 var2 var3
+
+* Outlier
+	• graph box var
+	• graph box var1, over(var2) 
+
+* Variance comparison
+	• sdtest var1==var2
+	• sdtest var1, by(var2)
+	
+* Chi square test
+	• tab var1 var2, chi2
+	• tab var1 var2, row chi
+
+* Fisher's exact test
+	• tab var1 var2, exact
+
+* Wilcoxon Rank Sum test
+	• ranksum var, by(var)
+
+* Independent t test
+	• ttest var1, by(var2) unequal       *one tailed
+	• ttest var1, by(var2) equal           * two tailed
+
+* paired t test
+	• ttest var1=var2
+
+* Logistic regression
+	• logistic dependentvar independentvar
+
+* Multivariable Logistic regression
+	• logistic dependentvar independentvar covariate1 covariate2 covariate3
+
+* Repeated measures ANOVA
+	• reshape long continuousvar, i(patientID) j(time)
+	• list, sepby(patientID) 
+	• anova continuousvar categoricalvar  / patientID|categoricalvar  time  categoricalvar#time, repeated(time)
+	• contrast time@categoricalvar, effect
+
+* Table
+	• ssc install table1_mc
+	• table1_mc, by(myexposure) /// vars( /// age contn %4.0f \ /// sex0m1f bin %4.0f \ /// race0w1b bin %4.0f \ /// region123 cat %4.0f \ /// educ1234 cat %4.0f \ /// income1234 cat %4.0f \ /// sbp contn %4.0f \ /// dbp contn %4.0f \ /// smoke7_ideal bin %4.0f \ /// pa7_ideal bin %4.0f \ /// diet7_ideal bin %4.0f \ /// chol7_ideal bin %4.0f \ /// fpg7_ideal bin %4.0f \ /// bmi7_ideal bin %4.0f \ /// bp7_ideal bin %4.0f \ /// ) /// nospace onecol missing total(before) /// saving("table 1.xlsx", replace)
+
+
+* Power and sample size calculation:
+Example: case-control study
+Click power, precision, and sample-size calculation
+Click proportions
+Click test of association in 1:M matched case-control studies
+Code:  power mcc 0.05, oratio(3) m(2)
+Study parameters:
+
+        alpha =    0.0500
+        power =    0.8000
+        delta =    3.0000
+           p0 =    0.0500
+       oratio =    3.0000
+         corr =    0.0000
+            M =         2
+
+Estimated sample size:
+
+      N cases =       118
