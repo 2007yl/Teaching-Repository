@@ -1,0 +1,433 @@
+## Introduction to Qualtrics {#slide-1}
+
+01-25-2023
+
+## Contents {#slide-2}
+
+Build a survey
+
+UH Café experience
+
+Build a report
+
+Ice cream shop experience
+
+## Slide 3
+
+![](ppt/media/image1.png "Picture 4")
+
+## UH Café customers experience  {#slide-4}
+
+![](ppt/media/image2.png "Picture 3")
+
+Food choices
+
+Food quality
+
+Environment
+
+Staff
+
+Waiting time
+
+## Slide 5
+
+        NPS; overall rating
+  -- -- ------------------------------------------------
+        Food quality? Food choices? Long waiting line?
+        Treating you with courtesy and respect?
+        Clean? Safe? Relaxing?
+
+01
+
+03
+
+04
+
+02
+
+Key metric
+
+Experience
+
+Staff
+
+Environment
+
+## Slide 6
+
+01
+
+03
+
+04
+
+02
+
+Design
+
+Build
+
+Distribution
+
+Data collection and Processing
+
+The components of a survey project
+
+05
+
+06
+
+Reporting
+
+Decision making
+
+## Survey Design {#slide-7}
+
+Captures the data that is ultimately used for decision-making.
+
+Has a significant downstream impact on the quality of data.
+
+## Best practice for designing a survey {#slide-8}
+
+Set your research objectives
+
+Make every question count
+
+Plan the order of your questions
+
+Limit survey length
+
+Effective question-wording
+
+Keep it simple for respondents
+
+Qualtrics.com
+
+## UH Café customers experience  {#slide-9}
+
+![](ppt/media/image2.png "Picture 3")
+
+Food choices
+
+Food quality
+
+Environment
+
+Staff
+
+Waiting time
+
+## Optimize respondent experience {#slide-10}
+
+Low cognitive load
+
+Low effort to complete
+
+## Questions {#slide-11}
+
+How many times have you visited UH Café in the past three months?
+
+Please select the type of food that you have tried in the past three months:
+
+How much do you agree with the following statement: UH Café should provide more types of food.
+
+What  type  of food you would like to see UH Cafe add? Please list them here.
+
+Please rate the following in terms of how much you agree or disagree with each statement.
+
+Food has high quality
+
+UH Café staff is friendly
+
+Eating environment is relaxing
+
+Waiting time for getting food is less than 10 min
+
+Overall is great
+
+How likely are you to recommend UH Café to a friend or colleague?
+
+## Slide 12
+
+https://umich.qualtrics.com/homepage/ui
+
+Level 1 
+
+Click create a new project (left bottom)
+
+![](ppt/media/image3.png "Picture 4")
+
+## Slide 13
+
+![](ppt/media/image4.png "Picture 4")
+
+## Slide 14
+
+![Graphical user interface, text, application
+
+Description automatically generated](ppt/media/image5.png "Picture 4")
+
+## Slide 15
+
+![](ppt/media/image6.png "Picture 4")
+
+## Slide 16
+
+![](ppt/media/image7.png "Picture 4")
+
+![](ppt/media/image8.png "Picture 8")
+
+## Slide 17
+
+## Slide 18
+
+![](ppt/media/image10.png "Picture 4")
+
+## Slide 19
+
+![](ppt/media/image11.png "Picture 4")
+
+## Slide 20
+
+![](ppt/media/image12.png "Picture 4")
+
+## Slide 21
+
+![](ppt/media/image13.png "Picture 4")
+
+## Slide 22
+
+![](ppt/media/image14.png "Picture 4")
+
+## Slide 23
+
+![](ppt/media/image16.png "Picture 8")
+
+## Slide 24
+
+![](ppt/media/image17.png "Picture 4")
+
+## Slide 25
+
+![](ppt/media/image18.png "Picture 4")
+
+## Slide 26
+
+![](ppt/media/image19.png "Picture 4")
+
+## Slide 27
+
+![](ppt/media/image20.png "Picture 4")
+
+## Slide 28
+
+![](ppt/media/image21.png "Picture 4")
+
+## Slide 29
+
+![](ppt/media/image22.png "Picture 4")
+
+## Slide 30
+
+![](ppt/media/image21.png "Picture 4")
+
+## Slide 31
+
+![](ppt/media/image23.png "Picture 4")
+
+## Most  surveys (u p to 53%) are completed on mobile devices. {#slide-32}
+
+- "mobile-friendly" can help increase both completion rates and the representativeness of your data.
+
+Facts
+
+- Sometimes matrix questions are not mobile-friendly.
+
+## Slide 33
+
+![](ppt/media/image15.png "Picture 4")
+
+## Slide 34
+
+![](ppt/media/image17.png "Picture 4")
+
+## Text entry boxes {#slide-35}
+
+Takes mental energy
+
+Completion rates decline
+
+Sometimes hard to analyze 
+
+## Slide 36
+
+![](ppt/media/image24.png "Picture 4")
+
+## Slide 37
+
+![](ppt/media/image25.png "Picture 4")
+
+## Informed consent {#slide-38}
+
+Click "import from library"
+
+Type "consent" in search box
+
+Click "informed consent"
+
+Click "add requirements, force response"
+
+Click "skip logic, if disagree, end survey"
+
+## Slide 39
+
+![](ppt/media/image26.png "Picture 4")
+
+## Recap {#slide-40}
+
+Survey design
+
+Build a survey
+
+Question types
+
+Be careful with matrix and open-text questions
+
+Preview and publish
+
+Distribution
+
+## Slide 41
+
+01
+
+03
+
+04
+
+02
+
+Design
+
+Build
+
+Distribution
+
+Data collection and Processing
+
+The components of a survey project
+
+05
+
+06
+
+Reporting
+
+Decision making
+
+## Ice Cream Shop Survey {#slide-42}
+
+How many times have you visited the Q Ice Cream Shop in the past year?
+
+What is your overall level of satisfaction with the Q Ice Cream Shop?
+
+Please select the flavors that you have tried in the past:
+
+How likely would you be to purchase a new  orange vanilla  flavor if we added it to our menu?
+
+How likely would you be to purchase a new  butter pecan  flavor if we added it to our menu?
+
+If there are any other flavors that you would like to see us add, please list them here.
+
+## Slide 43
+
+![](ppt/media/image27.png "Picture 2")
+
+![](ppt/media/image28.png "Picture 5")
+
+## Slide 44
+
+![](ppt/media/image29.png "Picture 4")
+
+## Slide 45
+
+![](ppt/media/image30.png "Picture 4")
+
+## Slide 46
+
+![](ppt/media/image31.png "Picture 4")
+
+## Your turn {#slide-47}
+
+Start a new report, make charts for questions 3,4,5,6
+
+Preview public report
+
+![](ppt/media/image28.png "Picture 3")
+
+## Slide 48
+
+![](ppt/media/image32.png "Picture 4")
+
+## Slide 49
+
+![](ppt/media/image33.png "Picture 4")
+
+## Slide 50
+
+![](ppt/media/image34.png "Picture 4")
+
+## Slide 51
+
+![](ppt/media/image35.png "Picture 4")
+
+200 respondents were extremely satisfied with the Q Ice Cream Shop.  How many times did they visit the shop in the past year?
+
+## Slide 52
+
+![](ppt/media/image36.png "Picture 4")
+
+Add filter
+
+## Slide 53
+
+![](ppt/media/image37.png "Picture 4")
+
+![](ppt/media/image38.png "Picture 8")
+
+## Slide 54
+
+![](ppt/media/image38.png "Picture 4")
+
+## Slide 55
+
+![](ppt/media/image39.png "Picture 4")
+
+## Recap {#slide-56}
+
+Build a report
+
+Bar charts, pie charts, table
+
+Data & Analysis
+
+Data
+
+Export to csv, excel, SPSS,  etc
+
+Stats  iQ
+
+Descriptive stats
+
+Crosstabs  iQ
+
+## Resources {#slide-57}
+
+https://basecamp.qualtrics.com
+
+https://libguides.library.kent.edu/qualtrics/howto
+
+## Patient experience survey questions {#slide-58}
+
+![](ppt/media/image40.png "Picture 4")
