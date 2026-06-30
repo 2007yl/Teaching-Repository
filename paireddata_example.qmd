@@ -1,0 +1,153 @@
+## Slide 1
+
+                  ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  --------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  Before(retro)   4      3      3      4      5      4      4      4      5      2       2
+  After           5      5      4      5      5      5      5      5      5      4       5
+
+Convey serious news about a patient\'s illness to the patient or family
+
+Likert scale
+
+## Slide 2
+
+                  ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  --------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  Before(retro)   1      0      0      1      1      1      1      1      1      0       0
+  After           1      1      1      1      1      1      1      1      1      1       1
+
+Convey serious news about a patient\'s illness to the patient or family
+
+Binary
+
+## Slide 3
+
+  Before (retro)   After   
+  ---------------- ------- ---
+                   0       1
+  0                0       4
+  1                0       7
+
+Convey serious news about a patient\'s illness to the patient or family
+
+Contingency table
+
+## Slide 4
+
+  Before (retro)   After        
+  ---------------- ------------ ----------
+                   unprepared   prepared
+  unprepared       0            4
+  prepared         0            7
+
+Convey serious news about a patient\'s illness to the patient or family
+
+Contingency table
+
+This contingency table is not suitable for  McNemar's  test
+
+## Slide 5
+
+                   ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  ---------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  Before (retro)   4      3      3      4      5      4      4      4      5      2       2
+  After            5      5      4      5      5      5      5      5      5      4       5
+
+Q1: Convey serious news about a patient\'s illness to the patient or family
+
+Likert scale
+
+       Before (retro)   After      p
+  ---- ---------------- ---------- -------
+  Q1   4 (3, 4)         5 (5, 5)   0.007
+
+Wilcoxon Signed-Rank Test
+
+Interpretation:
+
+there is a statistically significant improvement in the perceived preparedness to \"convey serious news about a patient\'s illness to the patient or family\" after the training.
+
+## Slide 6
+
+                  ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  --------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  Before(retro)   4      3      3      4      5      4      4      4      5      2       2
+
+Why are we unable to run a statistical test on these data? 
+
+Reported after workshop: knowing what I didn't know
+
+Reported before workshop: not knowing what I didn't know
+
+VS
+
+                ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?
+  ------------- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+  Before(pre)   2     4     4     4     2     4     4     5     5     5     2
+
+## Slide 7
+
+          ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  ------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  pre     ?      ?      4      ?      5      4      4      4      5      2       ?
+  retro   4      3      3      4      5      4      4      4      5      2       2
+
+If we create unique ID based on a combination of age, gender, PGY level:
+
+Matched N=7
+
+## Slide 8
+
+                  ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  --------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  Before(retro)   1      0      0      1      1      1      1      1      1      0       0
+
+Option: Descriptive statistics
+
+Reported after workshop: knowing what I didn't know
+
+Reported before workshop: not knowing what I didn't know
+
+VS
+
+                ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?   ID?
+  ------------- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+  Before(pre)   0     1     1     1     0     1     1     1     1     1     0
+
+## Slide 9
+
+Option: Descriptive statistics
+
+  How prepared were you prior to this workshop to...                                                           Proportion rating 4 or 5 on 5 point Likert scale (5 = very prepared)                              
+  -------------------------------------------------------------------------------- --- --- --- --- --- --- --- ---------------------------------------------------------------------- --------------------- --- ---
+                                                                                                               Rated prior to workshop                                                Rated post workshop        
+  Convey serious news about a patient\'s illness to the patient or family member                               8 (72.7%)                                                              7 (63.6%)                 
+
+## Slide 10
+
+             ID#1   ID#2   ID#3   ID#4   ID#5   ID#6   ID#7   ID#8   ID#9   ID#10   ID#11
+  ---------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  retro      4      3      3      4      5      4      4      4      5      2       2
+  30d post                 4             4                    4      5              
+
+If we create unique ID based on a combination of age, gender, PGY level:
+
+Matched N=4
+
+30 d post workshop data
+
+## Slide 11
+
+Take home message:
+
+- Is there a significant difference between participant reports of their pre-workshop preparedness rating before workshop and retroactively after workshop
+- Descriptive statistics
+- 
+- Is there a significant difference between participant reports of pre-workshop preparedness rating and immediate post-workshop rating
+- Descriptive statistics
+- 
+- Is there a significant difference between participant reports of pre-workshop preparedness rated retroactively after workshop and immediate post-workshop rating
+- Wilcoxon Signed-Rank test
+- 
+- Is there a significant difference between participant reports of pre-workshop preparedness rated retroactively after workshop and 30-day post rating
+- Descriptive statistics
