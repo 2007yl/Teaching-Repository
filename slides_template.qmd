@@ -1,0 +1,42 @@
+---
+title: ""
+author: ""
+date: 
+format: 
+   revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    theme: simple
+    incremental: true
+    scrollable: true
+execute:
+  echo: false
+  warning: false
+editor: visual
+---
+
+## Background
+
+## Data source
+
+## Research question 
+
+## Study design
+
+## Study population
+
+## Objective
+
+## Exposure
+
+## Primary outcome
+
+## Secondary outcome
+
+## Variables of interest
+
+## weighting variables
+
+## References
+   
