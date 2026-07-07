@@ -1,5 +1,5 @@
 ## Overview
-Archived code and slides for teaching Statistics and data analysis
+Archived code and slides for teaching Statistics and data analysis 2022-2026
 
 ## Project-1 Sample R code for Statistical course
 - Independent t-test
